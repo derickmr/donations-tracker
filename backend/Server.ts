@@ -1,12 +1,50 @@
-import express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { Request, Response } from 'express';
+import { Controller } from './controller/Controller';
+import ONGController from './controller/ong/ONGController';
+import {DefaultTokenGenerationService} from './service/authentication/impl/DefaultTokenGenerationService'
 
-// Create a new express app instance
-const app: express.Application = express();
+class Server {
+    application: express.Application;
+    router: express.Router = express.Router();
+    defaultPort: any;
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
+    constructor(controllers: Array<Controller>) {
+        this.application = express();
+        this.router = express.Router();
+        this.defaultPort = process.env.PORT || 3000;
+        this.loadConfiguration();
+        this.loadRoutes(controllers);
+    }
 
-app.listen(3000, function () {
-    console.log('App is listening on port 3000!');
-});
+    private loadConfiguration() {
+        this.application.use(bodyParser.json());
+        this.application.use(bodyParser.urlencoded({ extended: true }));
+        this.application.use('/', this.router);
+    }
+
+    private loadRoutes(controllers: Array<Controller>) {
+        this.loadRootRoute();
+        controllers.forEach(controller => {
+            this.application.use(controller.CONTEXT_PATH, controller.router);
+        })
+    }
+
+    private loadRootRoute() {
+        this.router.get('/', (request: Request, response: Response) => {
+            response.send('Open Community Chatbot!');
+        });
+    }
+
+    public async startup() {
+        this.application.listen(this.defaultPort, () => console.log(`Started app at http://localhost:${this.defaultPort}`));
+        console.log(await new DefaultTokenGenerationService().generate())
+    }
+}
+
+const server = new Server([
+    new ONGController
+]);
+
+server.startup();
