@@ -33,7 +33,7 @@ class Server {
 
     private loadRootRoute() {
         this.router.get('/', (request: Request, response: Response) => {
-            response.send('Open Community Chatbot!');
+            response.send('Donations Tracker!');
         });
     }
 
