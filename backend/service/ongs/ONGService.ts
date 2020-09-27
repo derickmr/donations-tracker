@@ -1,6 +1,7 @@
+import { ONGResponseData } from "../../data/ongs/ONGResponseData";
 import { ONGModel } from "../../model/ong/ONGModel";
 
 export interface ONGService {
-    getAllOngs(): Array<ONGModel>;
-    getOngById(id: String): ONGModel;
+    getAllOngs(): Promise<ONGResponseData>;
+    getOngById(id: String): Promise<ONGModel>;
 }
