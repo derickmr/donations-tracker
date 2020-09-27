@@ -33,7 +33,11 @@ export class DefaultONGService implements ONGService {
         });
     }
 
-    private async doRequestONG(URL: String): Promise<ONGModel> {
+    async getOngById(id: String): Promise<ONGResponseData>{
+        return await this.doRequestONG(this.replaceOrganizationIdOnRequestURL(id));
+    }
+
+    private async doRequestONG(URL: String): Promise<ONGResponseData> {
         return new Promise((resolve, reject) => {
 
             request.get({
@@ -44,14 +48,10 @@ export class DefaultONGService implements ONGService {
                 if (bodyResponse) {
                     resolve(bodyResponse);
                 } else {
-                    resolve(new ONGModel());
+                    resolve(new ONGResponseData());
                 }
             });
         });
-    }
-
-    async getOngById(id: String): Promise<ONGModel>{
-        return await this.doRequestONG(this.replaceOrganizationIdOnRequestURL(id));
     }
 
     private replaceOrganizationIdOnRequestURL(id: String): String{
