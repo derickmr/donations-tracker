@@ -1,5 +1,7 @@
 import React from 'react'
-import './App.css'
+import './index.css'
+
+import { HomeCard } from '../../components'
 
 export function App() {
   return (
@@ -8,15 +10,14 @@ export function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
       </header>
+      <div className='content'>
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+        <HomeCard />
+      </div>
     </div>
   )
 }
