@@ -14,7 +14,7 @@ export function HomeCard() {
       <div className='home-card-details'>
         <h3>Nome</h3>
         <h4>Detalhe</h4>
-        <Link className='link' to='/sobre'>
+        <Link className='link' to='/'>
           ver mais
         </Link>
       </div>

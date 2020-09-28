@@ -6,14 +6,13 @@
 }
 
 .home-card-image {
-  width: 400px;
+  width: 350px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
 
 .home-card h3,
 .home-card h4 {
-  margin: 0;
   margin-bottom: 10px;
 }
 
@@ -30,5 +29,5 @@
 .home-card-details .link {
   align-self: flex-end;
   text-decoration: none;
-  color: rgb(115, 202, 0);
+  color: rgb(132 165 89);
 }
