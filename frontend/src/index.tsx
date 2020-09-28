@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import { App } from './pages'
+import { Home } from './pages'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path='/' exact={true} component={App} />
+      <Route path='/' exact={true} component={Home} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')

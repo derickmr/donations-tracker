@@ -3,7 +3,7 @@ import './index.css'
 
 import { HomeCard, Header } from '../../components'
 
-export function App() {
+export function Home() {
   return (
     <div>
       <Header />
