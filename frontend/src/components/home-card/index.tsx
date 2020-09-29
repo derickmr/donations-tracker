@@ -1,19 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { HomeCardProps } from './types'
+
 import './index.css'
 
-export function HomeCard() {
+export function HomeCard(props: HomeCardProps) {
+  const { name, mission, logoUrl } = props
   return (
     <div className='home-card'>
-      <img
-        src='https://istoe.com.br/wp-content/uploads/sites/14/2020/04/ajuda-ongs.jpg'
-        alt='ONGs'
-        className='home-card-image'
-      />
+      <div className='home-card-image'>
+        <img src={logoUrl} alt={name} />
+      </div>
       <div className='home-card-details'>
-        <h3>Nome</h3>
-        <h4>Detalhe</h4>
+        <h3>{name}</h3>
+        <div className='mission'>
+          <h4>{mission}</h4>
+        </div>
+
         <Link className='link' to='/'>
           ver mais
         </Link>

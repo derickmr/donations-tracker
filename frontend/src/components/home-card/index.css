@@ -1,14 +1,18 @@
 .home-card {
   box-shadow: 0px 0px 5px 3px rgba(204, 204, 204, 1);
-  width: fit-content;
+  width: 270px;
   border-radius: 5px;
   margin: 15px;
 }
 
-.home-card-image {
-  width: 350px;
+.home-card-image img {
+  width: 100%;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
+}
+
+.home-card-image {
+  padding: 10px;
 }
 
 .home-card h3,
@@ -26,8 +30,16 @@
   flex-direction: column;
 }
 
+.mission {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
 .home-card-details .link {
   align-self: flex-end;
   text-decoration: none;
   color: rgb(132 165 89);
+  margin-top: 10px;
 }
