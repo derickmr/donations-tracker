@@ -18,6 +18,10 @@ class ONGController implements Controller {
         response.send(await new DefaultONGService().getAllOngs());
     };
 
+    public async getNextOngs(request: Request, response: Response) {
+        response.send(await new DefaultONGService().getNextOngs(request.body.nextProjectID));
+    };
+
     public async getONGById(request: Request, response: Response) {
         response.send(await new DefaultONGService().getOngById(request.body.ongId));
     }

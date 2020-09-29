@@ -10,18 +10,28 @@ export class DefaultONGService implements ONGService {
 
     readonly GET_ALL_ONGS_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/orgservice/all/organizations/active?api_key=${this.API_KEY}`;
 
-    readonly GET_ONG_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/orgservice/organization/{organizationid}?api_key=${this.API_KEY}`;
+    readonly GET_NEXT_ONGS_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/orgservice/all/organizations/active?api_key=${this.API_KEY}`;
+
+    readonly GET_ONG_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/projectservice/all/projects/active?api_key=${this.API_KEY}&nextProjectId={nextProjectID}`;
 
     async getAllOngs(): Promise<ONGResponseData> {
-        return this.doRequestAllOngs();
+        return this.doRequestAllOngs(this.GET_ALL_ONGS_SERVICE_ENDPOINT);
     }
 
-    private async doRequestAllOngs(): Promise<ONGResponseData> {
+    async getNextOngs(nextProjectID: String): Promise<ONGResponseData>{
+        return this.doRequestAllOngs(this.replaceNextProjectIDOnRequestURL(nextProjectID));
+    }
+
+    async getOngById(id: String): Promise<ONGResponseData>{
+        return this.doRequestONG(this.replaceOrganizationIdOnRequestURL(id));
+    }
+
+    private async doRequestAllOngs(URL: String): Promise<ONGResponseData> {
         return new Promise((resolve, reject) => {
 
             request.get({
                 headers: { 'accept': 'application/json' },
-                url: this.GET_ALL_ONGS_SERVICE_ENDPOINT
+                url: URL
             }, function (error: any, response: any, body: any) {
                 const bodyResponse: any = JSON.parse(body);
                 if (bodyResponse.organizations) {
@@ -31,10 +41,6 @@ export class DefaultONGService implements ONGService {
                 }
             });
         });
-    }
-
-    async getOngById(id: String): Promise<ONGResponseData>{
-        return await this.doRequestONG(this.replaceOrganizationIdOnRequestURL(id));
     }
 
     private async doRequestONG(URL: String): Promise<ONGResponseData> {
@@ -52,6 +58,10 @@ export class DefaultONGService implements ONGService {
                 }
             });
         });
+    }
+
+    private replaceNextProjectIDOnRequestURL(nextProjectID: String): String{
+        return this.GET_NEXT_ONGS_SERVICE_ENDPOINT.replace("{nextProjectID}", nextProjectID.toString());
     }
 
     private replaceOrganizationIdOnRequestURL(id: String): String{
