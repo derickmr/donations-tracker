@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import menu from '../../assets/menu.svg'
+import logo from '../../assets/logoName.png'
 
 import './index.css'
 
@@ -13,7 +14,7 @@ export function Header() {
           <img src={menu} alt='menu' className='menu-icon' />
         </label>
         <input type='checkbox' id='menu' />
-        <h1>Donations Tracker</h1>
+        <img src={logo} alt='donations tracker' className='logo' />
         <ul>
           <li>
             <Link className='link' to='/'>

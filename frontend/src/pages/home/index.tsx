@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './index.css'
 
-import { HomeCard, Header, Loader } from '../../components'
+import { HomeCard, Header, Loader, SearchOng } from '../../components'
 
 import { Api } from '../../service'
 
@@ -37,11 +37,16 @@ export function Home() {
       )
     }
 
-    return <div className='content'>{renderONGs()}</div>
+    return (
+      <div className='content'>
+        <SearchOng />
+        <div className='ongs-wrapper'>{renderONGs()}</div>
+      </div>
+    )
   }
 
   return (
-    <div>
+    <div className='container'>
       <Header />
       {renderContent()}
     </div>
