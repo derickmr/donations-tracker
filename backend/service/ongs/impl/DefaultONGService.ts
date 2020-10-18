@@ -10,9 +10,9 @@ export class DefaultONGService implements ONGService {
 
     readonly GET_ALL_ONGS_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/orgservice/all/organizations/active?api_key=${this.API_KEY}`;
 
-    readonly GET_NEXT_ONGS_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/orgservice/all/organizations/active?api_key=${this.API_KEY}`;
+    readonly GET_NEXT_ONGS_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/projectservice/all/projects?api_key=${this.API_KEY}&nextProjectId={nextProjectID}`;
 
-    readonly GET_ONG_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/projectservice/all/projects/active?api_key=${this.API_KEY}&nextProjectId={nextProjectID}`;
+    readonly GET_ONG_SERVICE_ENDPOINT: string = `https://api.globalgiving.org/api/public/orgservice/organization/{organizationid}?api_key=${this.API_KEY}`;
 
     async getAllOngs(): Promise<ONGResponseData> {
         return this.doRequestAllOngs(this.GET_ALL_ONGS_SERVICE_ENDPOINT);
@@ -44,6 +44,7 @@ export class DefaultONGService implements ONGService {
     }
 
     private async doRequestONG(URL: String): Promise<ONGResponseData> {
+        console.log("URL: " + URL);
         return new Promise((resolve, reject) => {
 
             request.get({
