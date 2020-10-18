@@ -11,7 +11,7 @@ class ONGController implements Controller {
     constructor() {
         this.router = express.Router();
         this.router.get('/', this.getAllONGS);
-        this.router.get('/byId', this.getONGById);
+        this.router.post('/byId', this.getONGById);
     }
 
     public async getAllONGS(request: Request, response: Response) {
