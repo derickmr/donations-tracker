@@ -1,0 +1,10 @@
+.themeName {
+  padding: 15px;
+  background: #f86b6a;
+  border-radius: 5px;
+  width: fit-content;
+  font-size: 13px;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  margin: 10px;
+}
