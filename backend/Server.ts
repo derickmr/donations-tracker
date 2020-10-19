@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { Controller } from './controller/Controller';
 import ONGController from './controller/ong/ONGController';
 import {DefaultTokenGenerationService} from './service/authentication/impl/DefaultTokenGenerationService'
+import DonationController from './controller/donation/DonationController';
 
 class Server {
     application: express.Application;
@@ -44,7 +45,8 @@ class Server {
 }
 
 const server = new Server([
-    new ONGController
+    new ONGController,
+    new DonationController
 ]);
 
 server.startup();
