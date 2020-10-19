@@ -6,12 +6,12 @@ export class DonationPaymentDetails {
     city: string;
     state: string;
     iso3166CountryCode: string;
-    paymentGateway: string;
-    paymentGatewayKey: string;
+    paymentGateway?: string;
+    paymentGatewayKey?: string;
     paymentGatewayNonce: string;
-
+    
     constructor(firstname: string, lastname: string, address: string, address2: string, city: string,
-        state: string, iso3166CountryCode: string, paymentGateway: string, paymentGatewayKey: string, paymentGatewayNonce: string) {
+        state: string, iso3166CountryCode: string, paymentGatewayNonce: string) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
@@ -19,8 +19,6 @@ export class DonationPaymentDetails {
         this.city = city;
         this.state = state;
         this.iso3166CountryCode = iso3166CountryCode;
-        this.paymentGateway = paymentGateway;
-        this.paymentGatewayKey = paymentGatewayKey;
         this.paymentGatewayNonce = paymentGatewayNonce;
     }
 }
