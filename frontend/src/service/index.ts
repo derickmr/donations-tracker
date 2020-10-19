@@ -10,4 +10,8 @@ export class Api {
   static getONGs() {
     return requestAxios.get('/ong')
   }
+
+  static getONGDetail(id: string) {
+    return requestAxios.post('/ong/byId', { ongId: id })
+  }
 }

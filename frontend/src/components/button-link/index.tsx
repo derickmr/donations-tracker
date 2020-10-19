@@ -6,7 +6,7 @@ import { ButtonLinkProps } from './types'
 import './index.css'
 
 export function ButtonLink(props: ButtonLinkProps) {
-  const { icon, label } = props
+  const { icon, label, url } = props
 
   function renderIcon() {
     if (icon) {
@@ -16,7 +16,7 @@ export function ButtonLink(props: ButtonLinkProps) {
     return null
   }
   return (
-    <Link className='button-link' to='/'>
+    <Link className='button-link' to={url}>
       {renderIcon()}
       <span>{label}</span>
     </Link>

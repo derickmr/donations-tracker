@@ -9,7 +9,7 @@ import { ButtonLink } from '../button-link'
 import './index.css'
 
 export function HomeCard(props: HomeCardProps) {
-  const { name, mission, logoUrl } = props
+  const { name, mission, logoUrl, id } = props
 
   function renderButtonIcon() {
     return <img src={plus} alt='ver mais' className='button-icon' />
@@ -27,7 +27,7 @@ export function HomeCard(props: HomeCardProps) {
           <h4>{mission}</h4>
         </div>
       </div>
-      <ButtonLink label='Ver Mais' icon={renderButtonIcon} />
+      <ButtonLink label='Ver Mais' icon={renderButtonIcon} url={`/ong/${id}`} />
     </div>
   )
 }
