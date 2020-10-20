@@ -1,148 +1,150 @@
-import './types';
-import React, { useState, useEffect } from 'react'
-import { Form } from './types';
+import React from 'react'
+import { Form } from './types'
+
+import { Header } from '../../components'
+
+import './index.css'
 
 export class DonationPage extends React.Component<{}, Form> {
-    constructor(props: any) {
-      super(props);
-      this.state = {firstName: '',
-                    lastName: '',
-                    projectId: '',
-                    amount: 0.00,
-                    email: '',
-                    cardNumber: '',
-                    expirationDate: '',
-                    cvv: '',
-                    postalCode: ''};
-
-      this.handleInputChange = this.handleInputChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      firstName: '',
+      lastName: '',
+      projectId: '',
+      amount: 0.0,
+      email: '',
+      cardNumber: '',
+      expirationDate: '',
+      cvv: '',
+      postalCode: '',
     }
 
-    componentDidMount() {
-        const clientScript = document.createElement("script");
-        clientScript.src = "https://js.braintreegateway.com/web/3.6.2/js/client.js";
-        clientScript.async = true;
-        document.body.appendChild(clientScript);
-
-        const hostedFieldsScript = document.createElement("script");
-        hostedFieldsScript.src = "https://js.braintreegateway.com/web/3.6.2/js/hosted-fields.js";
-        hostedFieldsScript.async = true;
-        document.body.appendChild(hostedFieldsScript);
-    }
-
-    handleInputChange(event: any) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-          [name]: value
-        } as Pick<Form, keyof Form>);
-      }
-
-    handleSubmit(event: any) {
-      alert('Form submited');
-      event.preventDefault();
-    }
-
-    render() {
-      return (
-          <>
-        <form id="ggPaymentForm">
-        <input type="hidden" name="paymentNonce" id="paymentNonce"/>
-        <label>
-          ID do projeto:
-          <input
-            id="projectId"
-            name="projectId"
-            type="string"
-            value={this.state.projectId}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Nome:
-          <input
-            id="firstName"
-            name="firstName"
-            type="string"
-            value={this.state.firstName}
-            onChange={this.handleInputChange} />
-        </label>
-        <label>
-          Sobrenome:
-          <input
-            id="lastName"
-            name="lastName"
-            type="string"
-            value={this.state.lastName}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            id="email"
-            name="email"
-            type="string"
-            value={this.state.email}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Código postal:
-          <input
-            id="postalCode"
-            name="postalCode"
-            type="string"
-            value={this.state.postalCode}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Número do cartão:
-          <input
-            id="cardNumber"
-            name="cardNumber"
-            type="string"
-            value={this.state.cardNumber}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          CVV:
-          <input
-            id="cvv"
-            name="cvv"
-            type="string"
-            value={this.state.cvv}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Valido até:
-          <input
-            id="expirationDate"
-            name="expirationDate"
-            type="string"
-            value={this.state.expirationDate}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Valor doado:
-          <input
-            id="amount"
-            name="amount"
-            type="double"
-            value={this.state.amount}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <input type="submit" value="Enviar" />
-      </form>
-      </>
-      );
-    }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  componentDidMount() {
+    const clientScript = document.createElement('script')
+    clientScript.src = 'https://js.braintreegateway.com/web/3.6.2/js/client.js'
+    clientScript.async = true
+    document.body.appendChild(clientScript)
+
+    const hostedFieldsScript = document.createElement('script')
+    hostedFieldsScript.src =
+      'https://js.braintreegateway.com/web/3.6.2/js/hosted-fields.js'
+    hostedFieldsScript.async = true
+    document.body.appendChild(hostedFieldsScript)
+  }
+
+  handleInputChange(event: any) {
+    const target = event.target
+    const value = target.value
+    const name = target.name
+
+    this.setState({
+      [name]: value,
+    } as Pick<Form, keyof Form>)
+  }
+
+  handleSubmit(event: any) {
+    alert('Form submited')
+    event.preventDefault()
+  }
+
+  renderInputAndLabel(id: string, label: string, value: any, type?: string) {
+    return (
+      <div className='input-wrapper'>
+        <label htmlFor={id}>{label}</label>
+        <input
+          id={id}
+          name={id}
+          type={type || 'string'}
+          value={value}
+          onChange={this.handleInputChange}
+        />
+      </div>
+    )
+  }
+
+  renderForm() {
+    return (
+      <form id='ggPaymentForm'>
+        <input type='hidden' name='paymentNonce' id='paymentNonce' />
+        <div className='form-row'>
+          {this.renderInputAndLabel(
+            'projectId',
+            'ID do projeto',
+            this.state.projectId
+          )}
+          {this.renderInputAndLabel('firstName', 'Nome', this.state.firstName)}
+        </div>
+
+        <div className='form-row'>
+          {this.renderInputAndLabel(
+            'lastName',
+            'Sobrenome',
+            this.state.lastName
+          )}
+          {this.renderInputAndLabel('email', 'Email', this.state.email)}
+        </div>
+
+        <div className='form-row'>
+          {this.renderInputAndLabel(
+            'postalCode',
+            'Código postal',
+            this.state.postalCode
+          )}
+
+          {this.renderInputAndLabel(
+            'cardNumber',
+            'Número do cartão',
+            this.state.cardNumber
+          )}
+        </div>
+
+        <div className='form-row'>
+          {this.renderInputAndLabel('cvv', 'CVV', this.state.cvv)}
+
+          {this.renderInputAndLabel(
+            'expirationDate',
+            'Valido até',
+            this.state.expirationDate
+          )}
+        </div>
+
+        <div className='form-row'>
+          {this.renderInputAndLabel(
+            'amount',
+            'Valor doado',
+            this.state.amount,
+            'double'
+          )}
+
+          <input type='submit' value='Enviar' className='submit-button' />
+        </div>
+      </form>
+    )
+  }
+
+  renderContent() {
+    return (
+      <div className='content'>
+        <div className='image-banner' />
+        <div className='form-title'>
+          <h1>Formulário de Doação</h1>
+        </div>
+        {this.renderForm()}
+      </div>
+    )
+  }
+
+  render() {
+    return (
+      <div className='container'>
+        <Header />
+        {this.renderContent()}
+      </div>
+    )
+  }
+}
