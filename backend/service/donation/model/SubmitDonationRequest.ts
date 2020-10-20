@@ -1,8 +1,8 @@
 import { DonationPaymentDetails } from "./DonationPaymentDetails";
 
 export class SubmitDonationRequest {
-    refcode: string;
-    transactionId: string;
+    refcode?: string;
+    transactionId?: string;
     email: string;
     amount: number;
     project: {
@@ -14,9 +14,7 @@ export class SubmitDonationRequest {
     userAgent?: string;
     payment_detail: DonationPaymentDetails;
 
-    constructor(refcode: string, transactionId: string, email: string, amount: number, project: any, payment_detail: DonationPaymentDetails) {
-        this.refcode = refcode;
-        this.transactionId = transactionId;
+    constructor(email: string, amount: number, project: any, payment_detail: DonationPaymentDetails) {
         this.email = email;
         this.amount = amount;
         this.project = project;
