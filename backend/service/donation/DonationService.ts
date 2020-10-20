@@ -1,5 +1,6 @@
 import { DonationPaymentDetails } from "./model/DonationPaymentDetails";
+import { SubmitDonationRequest } from "./model/SubmitDonationRequest";
 
 export interface DonationService {
-    submitDonation(donationPaymentDetails: DonationPaymentDetails): any;
+    submitDonation(submitDonationRequest: SubmitDonationRequest): any;
 }
