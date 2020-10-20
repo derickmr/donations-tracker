@@ -14,4 +14,8 @@ export class Api {
   static getONGDetail(id: string) {
     return requestAxios.post('/ong/byId', { ongId: id })
   }
+
+  static donateToONG() {
+    return requestAxios.get('/donate')
+  }
 }
