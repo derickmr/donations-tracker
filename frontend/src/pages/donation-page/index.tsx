@@ -18,6 +18,7 @@ export class DonationPage extends React.Component<{}, Form> {
       expirationDate: '',
       cvv: '',
       postalCode: '',
+      paymentNonce: ''
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -38,6 +39,9 @@ export class DonationPage extends React.Component<{}, Form> {
   }
 
   handleInputChange(event: any) {
+
+    console.log(JSON.stringify(this.state));
+
     const target = event.target
     const value = target.value
     const name = target.name
@@ -45,10 +49,13 @@ export class DonationPage extends React.Component<{}, Form> {
     this.setState({
       [name]: value,
     } as Pick<Form, keyof Form>)
+
   }
 
-  handleSubmit(event: any) {
-    alert('Form submited')
+  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    // alert('Form submited')
+    console.log(event);
+    // alert(JSON.stringify(document.getElementById("cvv")));
     event.preventDefault()
   }
 
@@ -67,10 +74,26 @@ export class DonationPage extends React.Component<{}, Form> {
     )
   }
 
+  renderDivAndLabel(id: string, label: string, value: any, type?: string) {
+    return (
+      <div className='input-wrapper'>
+        <label
+        htmlFor={id}
+        className="hosted-fields--label">{label}</label>
+        <div
+          id={id}
+          className="hosted-field"
+          onChange={this.handleInputChange}
+        />
+      </div>
+    )
+  }
+
   renderForm() {
     return (
-      <form id='ggPaymentForm'>
-        <input type='hidden' name='paymentNonce' id='paymentNonce' />
+      <form id='ggPaymentForm'
+      onSubmit={this.handleSubmit}>
+        <input type='hidden' name='paymentNonce' id='paymentNonce' onChange={this.handleInputChange}/>
         <div className='form-row'>
           {this.renderInputAndLabel(
             'projectId',
@@ -90,27 +113,13 @@ export class DonationPage extends React.Component<{}, Form> {
         </div>
 
         <div className='form-row'>
-          {this.renderInputAndLabel(
-            'postalCode',
-            'Código postal',
-            this.state.postalCode
-          )}
-
-          {this.renderInputAndLabel(
-            'cardNumber',
-            'Número do cartão',
-            this.state.cardNumber
-          )}
+          {this.renderDivAndLabel('ggCardNumber', 'Número do cartão', this.state.cardNumber)}
+          {this.renderDivAndLabel('ggCardExpiration', 'Data de expiração', this.state.expirationDate)}
         </div>
 
         <div className='form-row'>
-          {this.renderInputAndLabel('cvv', 'CVV', this.state.cvv)}
-
-          {this.renderInputAndLabel(
-            'expirationDate',
-            'Valido até',
-            this.state.expirationDate
-          )}
+          {this.renderDivAndLabel('ggCardCvv', 'CVV', this.state.cvv)}
+          {this.renderDivAndLabel('ggCardPostal', 'Código postal', this.state.postalCode)}
         </div>
 
         <div className='form-row'>

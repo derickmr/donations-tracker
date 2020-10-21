@@ -7,5 +7,6 @@ export interface Form {
     cardNumber: string,
     expirationDate: string,
     cvv: string,
-    postalCode: string
+    postalCode: string,
+    paymentNonce: string
 }
