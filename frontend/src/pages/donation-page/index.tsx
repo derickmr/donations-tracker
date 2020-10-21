@@ -18,7 +18,7 @@ export class DonationPage extends React.Component<{}, Form> {
       expirationDate: '',
       cvv: '',
       postalCode: '',
-      paymentNonce: ''
+      paymentNonce: '',
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -39,9 +39,6 @@ export class DonationPage extends React.Component<{}, Form> {
   }
 
   handleInputChange(event: any) {
-
-    console.log(JSON.stringify(this.state));
-
     const target = event.target
     const value = target.value
     const name = target.name
@@ -49,13 +46,11 @@ export class DonationPage extends React.Component<{}, Form> {
     this.setState({
       [name]: value,
     } as Pick<Form, keyof Form>)
-
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     // alert('Form submited')
-    console.log(event);
-    // alert(JSON.stringify(document.getElementById("cvv")));
+    console.log(event)
     event.preventDefault()
   }
 
@@ -74,15 +69,15 @@ export class DonationPage extends React.Component<{}, Form> {
     )
   }
 
-  renderDivAndLabel(id: string, label: string, value: any, type?: string) {
+  renderPaymentFields(id: string, label: string, value: any, type?: string) {
     return (
       <div className='input-wrapper'>
-        <label
-        htmlFor={id}
-        className="hosted-fields--label">{label}</label>
+        <label htmlFor={id} className='hosted-fields--label'>
+          {label}
+        </label>
         <div
           id={id}
-          className="hosted-field"
+          className='hosted-field'
           onChange={this.handleInputChange}
         />
       </div>
@@ -91,9 +86,13 @@ export class DonationPage extends React.Component<{}, Form> {
 
   renderForm() {
     return (
-      <form id='ggPaymentForm'
-      onSubmit={this.handleSubmit}>
-        <input type='hidden' name='paymentNonce' id='paymentNonce' onChange={this.handleInputChange}/>
+      <form id='ggPaymentForm' onSubmit={this.handleSubmit}>
+        <input
+          type='hidden'
+          name='paymentNonce'
+          id='paymentNonce'
+          onChange={this.handleInputChange}
+        />
         <div className='form-row'>
           {this.renderInputAndLabel(
             'projectId',
@@ -113,13 +112,25 @@ export class DonationPage extends React.Component<{}, Form> {
         </div>
 
         <div className='form-row'>
-          {this.renderDivAndLabel('ggCardNumber', 'Número do cartão', this.state.cardNumber)}
-          {this.renderDivAndLabel('ggCardExpiration', 'Data de expiração', this.state.expirationDate)}
+          {this.renderPaymentFields(
+            'ggCardNumber',
+            'Número do cartão',
+            this.state.cardNumber
+          )}
+          {this.renderPaymentFields(
+            'ggCardExpiration',
+            'Data de expiração',
+            this.state.expirationDate
+          )}
         </div>
 
         <div className='form-row'>
-          {this.renderDivAndLabel('ggCardCvv', 'CVV', this.state.cvv)}
-          {this.renderDivAndLabel('ggCardPostal', 'Código postal', this.state.postalCode)}
+          {this.renderPaymentFields('ggCardCvv', 'CVV', this.state.cvv)}
+          {this.renderPaymentFields(
+            'ggCardPostal',
+            'Código postal',
+            this.state.postalCode
+          )}
         </div>
 
         <div className='form-row'>
