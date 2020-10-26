@@ -49,9 +49,12 @@ export class DonationPage extends React.Component<{}, Form> {
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    // alert('Form submited')
-    console.log(event)
     event.preventDefault()
+    console.log(this.state.amount)
+    console.log(this.state.firstName)
+    console.log(this.state.lastName)
+    console.log(this.state.email)
+    //TODO send to backend endpoint to register donation
   }
 
   renderInputAndLabel(id: string, label: string, value: any, type?: string) {
