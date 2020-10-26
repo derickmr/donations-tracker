@@ -48,7 +48,7 @@ export function ONGDetail() {
           <div className='image-banner' />
           <div className='ong-buttons-container'>
             <div>
-              <ButtonLink label='Doar valor' url='/' />
+              <ButtonLink label='Doar valor' url='/donate' />
             </div>
           </div>
           <div className='details-container'>

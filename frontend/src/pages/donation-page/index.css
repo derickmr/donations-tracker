@@ -1,0 +1,110 @@
+form#ggPaymentForm {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.form-title {
+  width: 100%;
+  height: 72px;
+  box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.form-title h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: #151f2f;
+  margin-left: 40px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-height: 50px;
+}
+
+.input-wrapper:nth-child(2) {
+  margin-left: 50px;
+}
+
+.input-wrapper input,
+#ggCardNumber,
+#ggCardExpiration,
+#ggCardCvv,
+#ggCardPostal {
+  width: 250px;
+  height: 20px;
+  background-color: #f2f2f2;
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.input-wrapper input:focus,
+#ggCardNumber.braintree-hosted-fields-focused,
+#ggCardExpiration.braintree-hosted-fields-focused,
+#ggCardCvv.braintree-hosted-fields-focused,
+#ggCardPostal.braintree-hosted-fields-focused {
+  outline: none;
+  box-shadow: 0 0 10px #b1b1b1;
+}
+
+.submit-button {
+  width: 100%;
+  margin-top: 34px;
+  margin-left: 50px;
+  background: linear-gradient(90deg, #f86b6a 0%, #fd954e 100%);
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  border: 0;
+  font-size: 14px;
+}
+
+.input-wrapper label {
+  margin-bottom: 10px;
+  color: #151f2f;
+}
+
+.form-row {
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.hosted-field {
+  max-height: 50px !important;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+
+  .input-wrapper:nth-child(2) {
+    margin-left: 0;
+  }
+
+  .input-wrapper {
+    margin-bottom: 50px;
+  }
+
+  .submit-button {
+    margin-left: 0px;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 425px) {
+  .form-title {
+    justify-content: center;
+  }
+
+  .form-title h1 {
+    margin-left: 0px;
+  }
+}
