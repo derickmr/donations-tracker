@@ -2,23 +2,23 @@
    "type": "mysql",
    "host": "localhost",
    "port": 3306,
-   "username": "test",
-   "password": "test",
-   "database": "test",
+   "username": "developer",
+   "password": "developer",
+   "database": "donations_tracker",
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "db/entity/**/*.ts"
    ],
    "migrations": [
-      "src/migration/**/*.ts"
+      "db/migration/**/*.ts"
    ],
    "subscribers": [
-      "src/subscriber/**/*.ts"
+      "db/subscriber/**/*.ts"
    ],
    "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
+      "entitiesDir": "db/entity",
+      "migrationsDir": "db/migration",
+      "subscribersDir": "db/subscriber"
    }
 }
