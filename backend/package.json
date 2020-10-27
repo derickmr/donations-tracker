@@ -7,7 +7,7 @@
       "test": "echo \"Error: no test specified\" && exit 1",
       "tsc": "tsc",
       "build": "npx tsc",
-      "start": "ts-node src/index.ts"
+      "start": "ts-node js/Server.js"
    },
    "author": "",
    "license": "ISC",
