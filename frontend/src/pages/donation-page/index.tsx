@@ -1,54 +1,51 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form } from './types'
 
 import { Header } from '../../components'
 
 import './index.css'
 
-export class DonationPage extends React.Component<{}, Form> {
-  constructor(props: any) {
-    super(props)
-    this.state = {
-      firstName: '',
-      lastName: '',
-      projectId: '',
-      amount: 0.0,
-      email: '',
-      cardNumber: '',
-      expirationDate: '',
-      cvv: '',
-      postalCode: '',
-      paymentNonce: '',
-    }
+export function DonationPage() {
+  const [form, setForm] = useState<Form>({
+    firstName: '',
+    lastName: '',
+    projectId: '',
+    amount: 0.0,
+    email: '',
+    cardNumber: '',
+    expirationDate: '',
+    cvv: '',
+    postalCode: '',
+    paymentNonce: '',
+  })
 
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     require('./braintree-script.js')
-  }
+  }, [])
 
-  handleInputChange(event: any) {
+  function handleInputChange(event: any) {
     const target = event.target
     const value = target.value
     const name = target.name
 
-    this.setState({
-      [name]: value,
-    } as Pick<Form, keyof Form>)
+    setForm({ ...form, [name]: value })
   }
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    console.log(this.state.amount)
-    console.log(this.state.firstName)
-    console.log(this.state.lastName)
-    console.log(this.state.email)
+    console.log(form.amount)
+    console.log(form.firstName)
+    console.log(form.lastName)
+    console.log(form.email)
     //TODO send to backend endpoint to register donation
   }
 
-  renderInputAndLabel(id: string, label: string, value: any, type?: string) {
+  function renderInputAndLabel(
+    id: string,
+    label: string,
+    value: any,
+    type?: string
+  ) {
     return (
       <div className='input-wrapper'>
         <label htmlFor={id}>{label}</label>
@@ -57,83 +54,54 @@ export class DonationPage extends React.Component<{}, Form> {
           name={id}
           type={type || 'string'}
           value={value}
-          onChange={this.handleInputChange}
+          onChange={handleInputChange}
         />
       </div>
     )
   }
 
-  renderPaymentFields(id: string, label: string, value: any, type?: string) {
+  function renderPaymentFields(id: string, label: string) {
     return (
       <div className='input-wrapper'>
         <label htmlFor={id} className='hosted-fields--label'>
           {label}
         </label>
-        <div
-          id={id}
-          className='hosted-field'
-          onChange={this.handleInputChange}
-        />
+        <div id={id} className='hosted-field' />
       </div>
     )
   }
 
-  renderForm() {
+  function renderForm() {
     return (
-      <form id='ggPaymentForm' onSubmit={this.handleSubmit}>
+      <form id='ggPaymentForm' onSubmit={handleSubmit}>
         <input
           type='hidden'
           name='paymentNonce'
           id='paymentNonce'
-          onChange={this.handleInputChange}
+          onChange={handleInputChange}
         />
         <div className='form-row'>
-          {this.renderInputAndLabel(
-            'projectId',
-            'ID do projeto',
-            this.state.projectId
-          )}
-          {this.renderInputAndLabel('firstName', 'Nome', this.state.firstName)}
+          {renderInputAndLabel('projectId', 'ID do projeto', form.projectId)}
+          {renderInputAndLabel('firstName', 'Nome', form.firstName)}
         </div>
 
         <div className='form-row'>
-          {this.renderInputAndLabel(
-            'lastName',
-            'Sobrenome',
-            this.state.lastName
-          )}
-          {this.renderInputAndLabel('email', 'Email', this.state.email)}
+          {renderInputAndLabel('lastName', 'Sobrenome', form.lastName)}
+          {renderInputAndLabel('email', 'Email', form.email)}
         </div>
 
         <div className='form-row'>
-          {this.renderPaymentFields(
-            'ggCardNumber',
-            'Número do cartão',
-            this.state.cardNumber
-          )}
-          {this.renderPaymentFields(
-            'ggCardExpiration',
-            'Data de expiração',
-            this.state.expirationDate
-          )}
+          {renderPaymentFields('ggCardNumber', 'Número do cartão')}
+          {renderPaymentFields('ggCardExpiration', 'Data de expiração')}
         </div>
 
         <div className='form-row'>
-          {this.renderPaymentFields('ggCardCvv', 'CVV', this.state.cvv)}
-          {this.renderPaymentFields(
-            'ggCardPostal',
-            'Código postal',
-            this.state.postalCode
-          )}
+          {renderPaymentFields('ggCardCvv', 'CVV')}
+          {renderPaymentFields('ggCardPostal', 'Código postal')}
         </div>
 
         <div className='form-row'>
-          {this.renderInputAndLabel(
-            'amount',
-            'Valor doado',
-            this.state.amount,
-            'double'
-          )}
+          {renderInputAndLabel('amount', 'Valor doado', form.amount, 'double')}
 
           <input type='submit' value='Enviar' className='submit-button' />
         </div>
@@ -141,24 +109,22 @@ export class DonationPage extends React.Component<{}, Form> {
     )
   }
 
-  renderContent() {
+  function renderContent() {
     return (
       <div className='content'>
         <div className='image-banner' />
         <div className='form-title'>
           <h1>Formulário de Doação</h1>
         </div>
-        {this.renderForm()}
+        {renderForm()}
       </div>
     )
   }
 
-  render() {
-    return (
-      <div className='container'>
-        <Header />
-        {this.renderContent()}
-      </div>
-    )
-  }
+  return (
+    <div className='container'>
+      <Header />
+      {renderContent()}
+    </div>
+  )
 }
