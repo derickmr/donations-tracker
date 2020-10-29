@@ -26,16 +26,7 @@ export class DonationPage extends React.Component<{}, Form> {
   }
 
   componentDidMount() {
-    const clientScript = document.createElement('script')
-    clientScript.src = 'https://js.braintreegateway.com/web/3.6.2/js/client.js'
-    clientScript.async = true
-    document.body.appendChild(clientScript)
-
-    const hostedFieldsScript = document.createElement('script')
-    hostedFieldsScript.src =
-      'https://js.braintreegateway.com/web/3.6.2/js/hosted-fields.js'
-    hostedFieldsScript.async = true
-    document.body.appendChild(hostedFieldsScript)
+    require('./braintree-script.js')
   }
 
   handleInputChange(event: any) {
