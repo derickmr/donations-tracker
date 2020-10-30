@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { Form } from './types'
+import { useParams } from 'react-router-dom'
 
 import { Header } from '../../components'
+import { Form, RouteParams } from './types'
 
 import './index.css'
 
 export function DonationPage() {
+  let { id } = useParams<RouteParams>()
+
   const [form, setForm] = useState<Form>({
     firstName: '',
     lastName: '',
-    projectId: '',
+    projectId: id,
     amount: 0.0,
     email: '',
     cardNumber: '',
@@ -37,7 +40,9 @@ export function DonationPage() {
     console.log(form.firstName)
     console.log(form.lastName)
     console.log(form.email)
-    //TODO send to backend endpoint to register donation
+    if (form.projectId) {
+      //TODO send to backend endpoint to register donation
+    }
   }
 
   function renderInputAndLabel(
@@ -81,13 +86,13 @@ export function DonationPage() {
           onChange={handleInputChange}
         />
         <div className='form-row'>
-          {renderInputAndLabel('projectId', 'ID do projeto', form.projectId)}
           {renderInputAndLabel('firstName', 'Nome', form.firstName)}
+          {renderInputAndLabel('lastName', 'Sobrenome', form.lastName)}
         </div>
 
         <div className='form-row'>
-          {renderInputAndLabel('lastName', 'Sobrenome', form.lastName)}
           {renderInputAndLabel('email', 'Email', form.email)}
+          {renderPaymentFields('ggCardPostal', 'Código postal')}
         </div>
 
         <div className='form-row'>
@@ -97,12 +102,10 @@ export function DonationPage() {
 
         <div className='form-row'>
           {renderPaymentFields('ggCardCvv', 'CVV')}
-          {renderPaymentFields('ggCardPostal', 'Código postal')}
+          {renderInputAndLabel('amount', 'Valor doado', form.amount, 'double')}
         </div>
 
         <div className='form-row'>
-          {renderInputAndLabel('amount', 'Valor doado', form.amount, 'double')}
-
           <input type='submit' value='Enviar' className='submit-button' />
         </div>
       </form>

@@ -35,7 +35,6 @@ braintree.client.create(
     authorization: 'sandbox_mbzbpnqn_346mrgcqwkppmnhx', //REPLACE WITH YOUR OWN PAYMENT GATEWAY KEY
   },
   function (err, clientInstance) {
-    console.log('entrou')
     if (err) {
       console.log('error initializing payment gateway')
       return

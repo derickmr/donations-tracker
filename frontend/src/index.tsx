@@ -9,7 +9,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path='/' exact={true} component={Home} />
-      <Route path='/donate' exact={true} component={DonationPage} />
+      <Route path='/donate/:id' exact={true} component={DonationPage} />
       <Route path='/ong/:id' component={ONGDetail} />
     </Switch>
   </BrowserRouter>,

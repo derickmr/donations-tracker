@@ -18,7 +18,6 @@ export function ONGDetail() {
     async function getData() {
       setIsLoading(true)
       const { data } = await Api.getONGDetail(id)
-      console.log(data)
       setDetails(data.organization)
 
       setIsLoading(false)
@@ -48,7 +47,7 @@ export function ONGDetail() {
           <div className='image-banner' />
           <div className='ong-buttons-container'>
             <div>
-              <ButtonLink label='Doar valor' url='/donate' />
+              <ButtonLink label='Doar valor' url={`/donate/${details.id}`} />
             </div>
           </div>
           <div className='details-container'>

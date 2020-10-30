@@ -56,10 +56,9 @@ form#ggPaymentForm {
 .submit-button {
   width: 100%;
   margin-top: 34px;
-  margin-left: 50px;
   background: linear-gradient(90deg, #f86b6a 0%, #fd954e 100%);
   border-radius: 5px;
-  padding: 10px;
+  padding: 14px;
   color: white;
   border: 0;
   font-size: 14px;
