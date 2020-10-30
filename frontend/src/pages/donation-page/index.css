@@ -24,7 +24,6 @@ form#ggPaymentForm {
 .input-wrapper {
   display: flex;
   flex-direction: column;
-  max-height: 50px;
 }
 
 .input-wrapper:nth-child(2) {
@@ -55,7 +54,7 @@ form#ggPaymentForm {
 
 .submit-button {
   width: 100%;
-  margin-top: 34px;
+  margin-top: 20px;
   background: linear-gradient(90deg, #f86b6a 0%, #fd954e 100%);
   border-radius: 5px;
   padding: 14px;
@@ -71,7 +70,7 @@ form#ggPaymentForm {
 
 .form-row {
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .hosted-field {
