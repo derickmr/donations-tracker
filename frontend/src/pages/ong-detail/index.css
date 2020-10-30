@@ -26,6 +26,7 @@
 .details-container {
   max-width: 1300px;
   margin: 45px 30px;
+  width: 80%;
 }
 
 .name {
@@ -51,7 +52,6 @@
   font-size: 14px;
   line-height: 26px;
   color: #5c5f64;
-  max-width: 80%;
   padding-top: 20px;
   padding-bottom: 10px;
   margin: 20px 0px;
@@ -87,6 +87,10 @@
   .info-container {
     flex-direction: column-reverse;
     align-items: flex-start;
+  }
+
+  .info-container img {
+    margin-top: 20px;
   }
 
   .info-wrapper {
