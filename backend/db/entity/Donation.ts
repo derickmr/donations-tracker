@@ -6,7 +6,7 @@ export class Donation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column('double')
     amount: Double;
 
     @Column()

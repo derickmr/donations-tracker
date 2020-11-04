@@ -25,6 +25,11 @@ class Server {
     private loadConfiguration() {
         this.application.use(bodyParser.json());
         this.application.use(bodyParser.urlencoded({ extended: true }));
+        this.application.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "localhost");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+          });
         this.application.use('/', this.router);
     }
 
@@ -51,8 +56,8 @@ class Server {
             const user = new User();
             user.firstName = "Timber";
             user.lastName = "Saw";
+            user.email = "Saw";
             await connection.manager.save(user);
-            console.log("Saved a new user with id: " + user.id);
 
             console.log("Loading users from the database...");
             const users = await connection.manager.find(User);
