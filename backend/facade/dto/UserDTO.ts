@@ -1,8 +1,10 @@
+import { DonationDTO } from "./DonationDTO";
+
 export class UserDTO {
     firstName: string;
     lastName: string;
-    age: number;
     email: string;
+    donations: DonationDTO[];
 
     constructor() { }
 }

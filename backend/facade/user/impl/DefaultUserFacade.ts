@@ -1,6 +1,9 @@
+import { Double } from "typeorm";
+import { Donation } from "../../../db/entity/Donation";
 import { User } from "../../../db/entity/User";
 import { DefaultUserService } from "../../../service/user/impl/DefaultUserService";
 import { UserService } from "../../../service/user/UserService";
+import { DonationDTO } from "../../dto/DonationDTO";
 import { UserDTO } from "../../dto/UserDTO";
 import { UserFacade } from "../UserFacade";
 
@@ -49,9 +52,23 @@ export class DefaultUserFacade implements UserFacade {
     convertUserToUserDTO(user: User): UserDTO {
         var userDTO: UserDTO = new UserDTO();
         userDTO.email = user.email;
-        userDTO.age = user.age;
         userDTO.firstName = user.firstName;
         userDTO.lastName = user.lastName;
+        userDTO.donations =[];
+
+        if (user.donations) {
+            user.donations.forEach(donation => {
+                userDTO.donations.push(this.convertDonationToDonationDTO(donation));
+            })
+        }
         return userDTO;
+    }
+
+    convertDonationToDonationDTO(donation: Donation): DonationDTO {
+        var donationDto: DonationDTO = new DonationDTO();
+        donationDto.id = donation.id;
+        donationDto.amount = donation.amount.valueOf();
+        donationDto.projectId = donation.projectId;
+        return donationDto;
     }
 }
