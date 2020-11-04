@@ -18,12 +18,12 @@ export function Header() {
         <ul>
           <li>
             <Link className='link' to='/'>
-              Link 1
+              Home
             </Link>
           </li>
           <li>
-            <Link className='link' to='/'>
-              Link 2
+            <Link className='link' to='/donations'>
+              Minhas Doações
             </Link>
           </li>
           <li>
