@@ -1,4 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Donation } from "./Donation";
 
 @Entity()
 export class User {
@@ -12,7 +13,10 @@ export class User {
     @Column()
     lastName: string;
 
+    @Column({ unique: true })
+    email: string;
+
     @Column()
-    age: number;
+    donations: Array<Donation>
 
 }

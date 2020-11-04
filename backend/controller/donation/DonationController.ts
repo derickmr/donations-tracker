@@ -5,6 +5,7 @@ import express from 'express';
 import { SubmitDonationRequest } from "../../service/donation/model/SubmitDonationRequest";
 import { DefaultDonationService } from "../../service/donation/impl/DefaultDonationService";
 import { DonationService } from "../../service/donation/DonationService";
+import { DonationForm } from "../../service/donation/model/DonationForm";
 
 class DonationController implements Controller {
     readonly CONTEXT_PATH: string = "/donation"
@@ -14,8 +15,20 @@ class DonationController implements Controller {
     constructor() {
         this.router = express.Router();
         this.router.post('/submit', this.submit.bind(this));
+        this.router.post('/save', this.save.bind(this));
         this.donationService = new DefaultDonationService();
     }
+
+    public save(request: Request, response: Response) {
+        console.log(request.body);
+        if (request.body) {
+            let donationForm: DonationForm = this.getDonationFormFromJSON(request.body);
+            this.donationService.saveDonation(donationForm);
+            response.sendStatus(200);
+        } else {
+            response.sendStatus(400);
+        }
+    };
 
     public submit(request: Request, response: Response) {
         console.log(request.body);
@@ -29,12 +42,23 @@ class DonationController implements Controller {
         }
     };
 
+    protected getDonationFormFromJSON(json: any){
+        const donationForm = new DonationForm();
+        donationForm.firstname = json.firstName;
+        donationForm.lastname = json.lastName;
+        donationForm.email = json.email;
+        donationForm.projectId = json.projectId;
+        donationForm.amount = json.amount;
+
+        return donationForm;
+    }
+
     protected getDonationRequestFromJSON(json: any, donationPaymentDetails: DonationPaymentDetails): SubmitDonationRequest {
         return new SubmitDonationRequest(json.email, json.amount, {id: json.project}, donationPaymentDetails);
     }
 
     protected getPaymentDetailsFromJSON(json: any): DonationPaymentDetails {
-        return new DonationPaymentDetails(json.firstname, json.lastname, json.address, json.address2, 
+        return new DonationPaymentDetails(json.firstname, json.lastname, json.address, json.address2,
             json.city, json.state, json.iso3166CountryCode, json.paymentGatewayNonce);
     }
 }
