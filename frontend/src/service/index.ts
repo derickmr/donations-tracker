@@ -18,4 +18,8 @@ export class Api {
   static donateToONG() {
     return requestAxios.get('/donate')
   }
+
+  static saveDonation(form: any) {
+    return requestAxios.post('/donation/save', form)
+  }
 }

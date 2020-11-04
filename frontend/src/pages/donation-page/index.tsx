@@ -5,6 +5,7 @@ import { Header } from '../../components'
 import { Form, RouteParams } from './types'
 
 import './index.css'
+import { Api } from '../../service'
 
 export function DonationPage() {
   let { id } = useParams<RouteParams>()
@@ -34,14 +35,15 @@ export function DonationPage() {
     setForm({ ...form, [name]: value })
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     console.log(form.amount)
+    console.log(form.projectId)
     console.log(form.firstName)
     console.log(form.lastName)
     console.log(form.email)
     if (form.projectId) {
-      //TODO send to backend endpoint to register donation
+      await Api.saveDonation(JSON.stringify(form));
     }
   }
 
