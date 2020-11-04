@@ -15,5 +15,4 @@ export class User {
 
     @Column("simple-array", {default: null})
     donations: Donation[];
-
 }
