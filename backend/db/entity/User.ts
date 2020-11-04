@@ -1,10 +1,11 @@
 import {Entity, PrimaryGeneratedColumn, Column, PrimaryColumn} from "typeorm";
+import { Donation } from "./Donation";
 
 @Entity()
 export class User {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryColumn({ unique: true })
+    email: string;
 
     @Column()
     firstName: string;
@@ -12,9 +13,6 @@ export class User {
     @Column()
     lastName: string;
 
-    @Column()
-    age: number;
-
-    @PrimaryColumn({unique: true})
-    email: string;
+    @Column("simple-array", {default: null})
+    donations: Donation[];
 }

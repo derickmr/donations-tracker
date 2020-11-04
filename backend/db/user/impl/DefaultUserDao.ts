@@ -17,7 +17,7 @@ export class DefaultUserDao implements UserDao {
     async create(user: User) {
         console.log("Inserting a new user into the database.");
         await this.connection.manager.save(user);
-        console.log("Saved a new user with id: " + user.id);
+        console.log("Saved a new user with email: " + user.email);
     }
     async delete(email: string) {
         this.connection.getRepository(User).delete({ email: email });
@@ -42,10 +42,10 @@ export class DefaultUserDao implements UserDao {
         return new Promise(async (resolve, reject) => {
             console.log("Updating user in the database...");
             var updateResult: UpdateResult = await this.connection.getRepository(User)
-                .update({ id: user.id, email: user.email }, user);
+                .update({email: user.email }, user);
 
             if (updateResult.affected && updateResult.affected > 0) {
-                console.log("Updated user with id: " + user.id);
+                console.log("Updated user with email: " + user.email);
                 resolve(user);
             } else {
                 resolve(undefined);

@@ -26,6 +26,11 @@ class Server {
     private loadConfiguration() {
         this.application.use(bodyParser.json());
         this.application.use(bodyParser.urlencoded({ extended: true }));
+        this.application.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "localhost");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+          });
         this.application.use('/', this.router);
     }
 
