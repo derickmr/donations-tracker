@@ -1,7 +1,7 @@
 import { User } from "../../entity/User";
 import { UserDao } from "../UserDao";
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, UpdateResult } from "typeorm";
 
 export class DefaultUserDao implements UserDao {
     connection: any;
@@ -41,9 +41,15 @@ export class DefaultUserDao implements UserDao {
     async update(user: User): Promise<User> {
         return new Promise(async (resolve, reject) => {
             console.log("Updating user in the database...");
-            await this.connection.manager.save(user);
-            console.log("Updated user with id: " + user.id);
-            resolve(user);
+            var updateResult: UpdateResult = await this.connection.getRepository(User)
+                .update({ id: user.id, email: user.email }, user);
+
+            if (updateResult.affected && updateResult.affected > 0) {
+                console.log("Updated user with id: " + user.id);
+                resolve(user);
+            } else {
+                resolve(undefined);
+            }
         });
     }
 }
