@@ -116,7 +116,7 @@ export function DonationPage() {
 
   function renderContent() {
     return (
-      <div className='content'>
+      <div className='donation-content content'>
         <div className='image-banner' />
         <div className='form-title'>
           <h1>Formulário de Doação</h1>
