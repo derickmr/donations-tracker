@@ -26,8 +26,6 @@ class DonationController implements Controller {
     }
 
     public save(request: Request, response: Response) {
-        console.log(request.body);
-        console.log("hi lorena");
         if (request.body) {
             let donationForm: DonationForm = this.getDonationFormFromJSON(request.body);
             this.donationService.saveDonation(donationForm);
