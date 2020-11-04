@@ -4,7 +4,7 @@ import { TokenGenerationService } from "../../authentication/TokenGenerationServ
 import { DonationService } from "../DonationService";
 import { DonationForm } from "../model/DonationForm";
 import { SubmitDonationRequest } from "../model/SubmitDonationRequest";
-import {createConnection} from "typeorm";
+import {Connection, ConnectionManager, createConnection, getConnectionManager} from "typeorm";
 import { User } from "../../../db/entity/User";
 import { Donation } from "../../../db/entity/Donation";
 const request = require('request');
@@ -37,27 +37,57 @@ export class DefaultDonationService implements DonationService {
     }
 
     async saveDonation(form: DonationForm) {
-        createConnection().then(async connection => {
+        let connection;
+        try {
+            connection = getConnectionManager().get("default");
+        } catch (e: any){
+            console.log(e);
+        }
+
+        if (connection !== undefined){
+            this.save(connection, form);
+        } else {
+            connection = await createConnection();
+            this.save(connection, form);
+        }
+
+    }
+
+    async save(connection: Connection, form: DonationForm){
 
             const userRepository = await connection.manager.getRepository(User);
 
-            const user = await userRepository.findOne(
+            let user = await userRepository.findOne(
                 { where:
                     { email: form.email }
                 }
             );
 
+            if (user === undefined){
+                user = new User();
+                user.email = form.email;
+                user.firstName = form.firstname;
+                user.lastName = form.lastname;
+            }
+
             const donation = new Donation();
             donation.projectId = form.projectId;
             donation.amount = form.amount;
+
+            if (user.donations === undefined || user.donations === null){
+                user.donations = new Array<Donation>();
+            }
 
             user?.donations.push(donation);
 
             console.log("Saving user and donation...");
 
+            console.log("User: " + JSON.stringify(user));
+            console.log("Donation: " + JSON.stringify(donation));
+
             await connection.manager.save(donation);
             await connection.manager.save(user);
 
-        }).catch(error => console.log(error));
     }
+
 }
