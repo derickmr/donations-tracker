@@ -1,5 +1,5 @@
 import { Controller } from "../Controller";
-import { Request, Response } from 'express';
+import { Request, response, Response } from 'express';
 import { DonationPaymentDetails } from "../../service/donation/model/DonationPaymentDetails";
 import express from 'express';
 import { SubmitDonationRequest } from "../../service/donation/model/SubmitDonationRequest";
@@ -16,7 +16,13 @@ class DonationController implements Controller {
         this.router = express.Router();
         this.router.post('/submit', this.submit.bind(this));
         this.router.post('/save', this.save.bind(this));
+        this.router.get('/user', this.getUser.bind(this));
         this.donationService = new DefaultDonationService();
+    }
+
+    public getUser(){
+        response.sendStatus(200);
+        response.send(this.donationService.getMockedUser());
     }
 
     public save(request: Request, response: Response) {

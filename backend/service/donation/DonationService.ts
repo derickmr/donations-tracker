@@ -5,4 +5,5 @@ import { SubmitDonationRequest } from "./model/SubmitDonationRequest";
 export interface DonationService {
     submitDonation(submitDonationRequest: SubmitDonationRequest): any;
     saveDonation(form: DonationForm): any;
+    getMockedUser(): any;
 }

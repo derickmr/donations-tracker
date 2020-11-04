@@ -36,6 +36,30 @@ export class DefaultDonationService implements DonationService {
         });
     }
 
+    async getMockedUser() {
+        let connection;
+        try {
+            connection = getConnectionManager().get("default");
+        } catch (e: any){
+            console.log(e);
+        }
+
+        if (connection === undefined){
+            connection = await createConnection();
+        }
+
+        const userRepository = await connection.manager.getRepository(User);
+
+        let user = await userRepository.findOne(
+            { where:
+                { email: 'aa@mail.com' }
+            }
+        );
+
+        return user;
+
+    }
+
     async saveDonation(form: DonationForm) {
         let connection;
         try {
