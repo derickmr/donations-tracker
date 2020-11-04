@@ -2,6 +2,8 @@
 
 ## Database setup
 
+Pré-requisitos: Instalar MySQL na máquina local (https://www.mysql.com/)
+
 ```sh
 CREATE SCHEMA IF NOT EXISTS donations_tracker DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 CREATE USER IF NOT EXISTS 'developer'@'127.0.0.1' IDENTIFIED BY 'developer';
