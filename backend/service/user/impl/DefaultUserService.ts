@@ -15,14 +15,17 @@ export class DefaultUserService implements UserService {
     delete(email: string) {
         this.userDao.delete(email);
     }
-    async get(email: string) {
-        var user = await this.userDao.get(email)
-        return user;
+    async get(email: string): Promise<User> {
+        var user: User = await this.userDao.get(email)
+        return new Promise((resolve, reject) => { resolve(user) });
     }
-    async getAll() {
-        return await this.userDao.getAll();
+    async getAll(): Promise<User[]> {
+        var users: User[] = await this.userDao.getAll();
+        return new Promise((resolve, reject) => { resolve(users) });
+
     }
-    async update(user: User) {
-        return await this.userDao.update(user);
+    async update(user: User): Promise<User> {
+        var updatedUser: User = await this.userDao.update(user)
+        return new Promise((resolve, reject) => { resolve(updatedUser) });
     }
 }
