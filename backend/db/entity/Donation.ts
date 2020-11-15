@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, Double} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, Double, ManyToOne} from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Donation {
@@ -12,4 +13,6 @@ export class Donation {
     @Column()
     projectId: string;
 
+    @ManyToOne(() => User, user => user.donations)
+    user: User;
 }
