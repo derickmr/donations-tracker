@@ -40,7 +40,6 @@ class DonationController implements Controller {
         if (request.body) {
             let donationPaymentDetails: DonationPaymentDetails = this.getPaymentDetailsFromJSON(request.body);
             let submitDonationRequest: SubmitDonationRequest = this.getDonationRequestFromJSON(request.body, donationPaymentDetails);
-            this.donationService.submitDonation(submitDonationRequest);
             response.sendStatus(200);
         } else {
             response.sendStatus(400);
