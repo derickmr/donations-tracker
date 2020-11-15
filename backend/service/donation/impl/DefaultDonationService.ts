@@ -16,6 +16,28 @@ export class DefaultDonationService implements DonationService {
     constructor() {
         this.tokenGenerationService = new DefaultTokenGenerationService();
     }
+    async getAll(email: string): Promise<Donation[]> {
+        return new Promise(async (resolve, reject) => {
+            let connection;
+            try {
+                connection = getConnectionManager().get("default");
+            } catch (error: any){
+                console.log(error);
+            }
+
+            if (connection === undefined){
+                connection = await createConnection();
+            }
+
+            const donations: Donation[] = await connection
+                .getRepository(Donation)
+                .createQueryBuilder("donation")
+                .innerJoin("donation.user", "user")
+                .where("user.email = :email", {email: email})
+                .getMany();
+            resolve(donations);
+        });
+    }
 
     async submitDonation(submitDonationRequest: SubmitDonationRequest) {
         let authenticationToken: string = await this.tokenGenerationService.generate();
@@ -81,37 +103,20 @@ export class DefaultDonationService implements DonationService {
 
             const userRepository = await connection.manager.getRepository(User);
 
-            let user = await userRepository.findOne(
+            let user: User | undefined = await userRepository.findOne(
                 { where:
                     { email: form.email }
                 }
             );
 
-            if (user === undefined){
-                user = new User();
-                user.email = form.email;
-                user.firstName = form.firstname;
-                user.lastName = form.lastname;
+            if (user) {
+                const donation = new Donation();
+                donation.projectId = form.projectId;
+                donation.amount = form.amount;
+                donation.user = user;
+
+                console.log("Saving donation...");    
+                await connection.manager.save(donation);
             }
-
-            const donation = new Donation();
-            donation.projectId = form.projectId;
-            donation.amount = form.amount;
-
-            if (user.donations === undefined || user.donations === null){
-                user.donations = new Array<Donation>();
-            }
-
-            user?.donations.push(donation);
-
-            console.log("Saving user and donation...");
-
-            console.log("User: " + JSON.stringify(user));
-            console.log("Donation: " + JSON.stringify(donation));
-
-            await connection.manager.save(donation);
-            await connection.manager.save(user);
-
     }
-
 }
