@@ -15,4 +15,7 @@ export class Donation {
 
     @ManyToOne(() => User, user => user.donations)
     user: User;
+
+    @Column({type: 'date'})
+    date: Date;
 }
