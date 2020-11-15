@@ -4,7 +4,7 @@ import express from 'express';
 import { UserFacade } from "../../facade/user/UserFacade";
 import { DefaultUserFacade } from "../../facade/user/impl/DefaultUserFacade";
 import { UserDTO } from "../../facade/dto/UserDTO";
-import { AbstractController } from "../AbtractController";
+import { AbstractController } from "../AbstractController";
 
 const jwt = require('jsonwebtoken');
 
