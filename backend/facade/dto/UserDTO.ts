@@ -5,6 +5,8 @@ export class UserDTO {
     lastName: string;
     email: string;
     donations: DonationDTO[];
+    isAuthenticated: boolean;
+    token: any;
 
     constructor() { }
 }
