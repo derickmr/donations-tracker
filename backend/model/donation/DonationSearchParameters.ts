@@ -6,4 +6,5 @@ export class DonationSearchParameters {
     donationDateLessThan: Date;
     donationDateGreaterThan: Date;
     projectId: string;
+    userEmail: string;
 }

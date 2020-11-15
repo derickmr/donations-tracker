@@ -33,7 +33,9 @@ export class DefaultDonationService implements DonationService {
 
             var query = await connection
                 .getRepository(Donation)
-                .createQueryBuilder("donation");
+                .createQueryBuilder("donation")
+                .innerJoin("donation.user", "user")
+                .where("user.email = :email", {email: parameters.userEmail});
 
             if (parameters.amountGreaterThan) {
                 query.where("donation.amount >= :value", {value: parameters.amountGreaterThan})
