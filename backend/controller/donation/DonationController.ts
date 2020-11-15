@@ -8,6 +8,7 @@ import { DonationService } from "../../service/donation/DonationService";
 import { DonationForm } from "../../service/donation/model/DonationForm";
 import { Donation } from "../../db/entity/Donation";
 import { AbstractController } from "../AbstractController";
+import { DonationSearchParameters } from "../../model/donation/DonationSearchParameters";
 
 class DonationController extends AbstractController implements Controller {
     readonly CONTEXT_PATH: string = "/donation"
@@ -20,6 +21,7 @@ class DonationController extends AbstractController implements Controller {
         this.router.post('/submit', this.submit.bind(this));
         this.router.post('/save', super.verifyJWT, this.save.bind(this));
         this.router.get('/all', super.verifyJWT, this.getAll.bind(this));
+        this.router.get('/search', super.verifyJWT, this.search.bind(this));
         this.router.get('/user', this.getUser.bind(this));
         this.donationService = new DefaultDonationService();
     }
@@ -49,6 +51,17 @@ class DonationController extends AbstractController implements Controller {
         }
     };
 
+    public async search(request: Request, response: Response) {
+        if(request.body) {
+            try {
+                var donations: Donation[] = await this.donationService.search(this.getDonationSearchParameters(request.body));
+                response.send(donations);
+            } catch (error: any) {
+                response.status(400).send("Failed to retrieve search donations, cause: " + error)
+            }  
+        }
+    }
+
     public async getAll(request: Request, response: Response) {
         if (request.body) {
             try {
@@ -58,6 +71,17 @@ class DonationController extends AbstractController implements Controller {
                 response.status(400).send("Failed to retrieve all donations, cause: " + error)
             }
         }
+    }
+
+    protected getDonationSearchParameters(json: any): DonationSearchParameters {
+        const searchParameters: DonationSearchParameters = new DonationSearchParameters();
+        searchParameters.amountGreaterThan = json.amountGreaterThan;
+        searchParameters.amountLessThan = json.amountLessThan;
+        searchParameters.donationDateGreaterThan = json.donationDateGreaterThan;
+        searchParameters.donationDateLessThan = json.donationDateLessThan;
+        searchParameters.projectId = json.projectId;
+        searchParameters.userEmail = json.userEmail;
+        return searchParameters;
     }
 
     protected getDonationFormFromJSON(json: any){
