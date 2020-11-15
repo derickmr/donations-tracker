@@ -7,6 +7,7 @@ import { SubmitDonationRequest } from "../model/SubmitDonationRequest";
 import {Connection, ConnectionManager, createConnection, getConnectionManager} from "typeorm";
 import { User } from "../../../db/entity/User";
 import { Donation } from "../../../db/entity/Donation";
+import { DonationSearchParameters } from "../../../model/donation/DonationSearchParameters";
 const request = require('request');
 const { v4: uuidv4 } = require('uuid');
 
@@ -16,6 +17,48 @@ export class DefaultDonationService implements DonationService {
     constructor() {
         this.tokenGenerationService = new DefaultTokenGenerationService();
     }
+
+    search(parameters: DonationSearchParameters): Promise<Donation[]> {
+        return new Promise(async (resolve, reject) => {
+            let connection;
+            try {
+                connection = getConnectionManager().get("default");
+            } catch (error: any){
+                console.log(error);
+            }
+
+            if (connection === undefined){
+                connection = await createConnection();
+            }
+
+            var query = await connection
+                .getRepository(Donation)
+                .createQueryBuilder("donation");
+
+            if (parameters.amountGreaterThan) {
+                query.where("donation.amount >= :value", {value: parameters.amountGreaterThan})
+            }
+
+            if (parameters.amountLessThan) {
+                query.where("donation.amount <= :value", {value: parameters.amountLessThan})
+            }
+
+            if (parameters.projectId) {
+                query.where("donation.projectId LIKE :value", {value: `%${parameters.projectId}%`})
+            }
+
+            if (parameters.donationDateGreaterThan) {
+                query.where("donation.date >= :value", {value: parameters.donationDateGreaterThan})
+            }
+
+            if (parameters.donationDateLessThan) {
+                query.where("donation.date <= :value", {value: parameters.donationDateLessThan})
+            }
+            const donations: Donation[] = await query.getMany();
+            resolve(donations);
+        });    
+    }
+
     async getAll(email: string): Promise<Donation[]> {
         return new Promise(async (resolve, reject) => {
             let connection;
@@ -114,6 +157,7 @@ export class DefaultDonationService implements DonationService {
                 donation.projectId = form.projectId;
                 donation.amount = form.amount;
                 donation.user = user;
+                donation.date = new Date();
 
                 console.log("Saving donation...");    
                 await connection.manager.save(donation);
