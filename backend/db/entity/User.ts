@@ -13,6 +13,9 @@ export class User {
     @Column()
     lastName: string;
 
+    @Column()
+    password: string;
+
     @Column("simple-array", {default: null})
     donations: Donation[];
 }

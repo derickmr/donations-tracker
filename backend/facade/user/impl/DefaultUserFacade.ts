@@ -13,6 +13,18 @@ export class DefaultUserFacade implements UserFacade {
     constructor() {
         this.userService = new DefaultUserService();
     }
+    async login(email: string, password: string): Promise<UserDTO> {
+        var user: User = await this.userService.login(email, password);
+        try {
+            return new Promise((resolve, reject) => {
+                resolve(this.convertUserToUserDTO(user))
+            });
+        } catch (error) {
+            return new Promise((resolve, reject) => {
+                reject("Authentication not possible");
+            });
+        }
+    }
     create(userDTO: UserDTO) {
         this.userService.create(Object.assign(new User(), userDTO));
     }
@@ -54,7 +66,7 @@ export class DefaultUserFacade implements UserFacade {
         userDTO.email = user.email;
         userDTO.firstName = user.firstName;
         userDTO.lastName = user.lastName;
-        userDTO.donations =[];
+        userDTO.donations = [];
 
         if (user.donations) {
             user.donations.forEach(donation => {

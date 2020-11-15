@@ -9,6 +9,16 @@ export class DefaultUserService implements UserService {
     constructor() {
         this.userDao = new DefaultUserDao();
     }
+    async login(email: string, password: string): Promise<User> {
+        var user: User = await this.get(email);
+        return new Promise((resolve, reject) => { 
+            if (user && email === user.email && password === user.password) {
+                resolve(user);
+            } else {
+                reject("Invalid login");
+            }
+        });
+    }
     create(user: User) {
         this.userDao.create(user);
     }
