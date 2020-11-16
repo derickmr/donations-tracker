@@ -14,3 +14,5 @@ GRANT ALL PRIVILEGES ON donations_tracker.* TO 'developer'@'127.0.0.1' WITH GRAN
 GRANT ALL PRIVILEGES ON donations_tracker.* TO 'developer'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
+
+Depois de criar o banco roder o comando ```use donations_tracker``` e rode ```set session sql_mode = 'No_engine_substitution';```
