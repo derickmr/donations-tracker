@@ -24,7 +24,7 @@ header {
 }
 
 .header ul li {
-  padding: 0 20px;
+  padding: 0 25px;
 }
 
 .header h1 {
@@ -54,6 +54,11 @@ input[type='checkbox'] {
 
 .logo {
   width: 300px;
+}
+
+.link img {
+  width: 25px;
+  height: 25px;
 }
 
 @media (max-width: 768px) {

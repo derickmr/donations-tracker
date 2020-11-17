@@ -27,4 +27,10 @@ export class Api {
     const { status } = await requestAxios.post('/user', data)
     return status === 201
   }
+
+  static async loginUser(data: any) {
+    const a = await requestAxios.post('/user/login', data)
+    console.log(a)
+    return a
+  }
 }

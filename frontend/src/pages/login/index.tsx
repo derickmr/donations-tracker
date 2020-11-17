@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
-
 import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import logo from '../../assets/logoName.png'
+import logo from '../../assets/logo.png'
 
 import { Header, Button } from '../../components'
 import { Form } from './types'
@@ -11,13 +11,11 @@ import { Form } from './types'
 import './index.css'
 import { Api } from '../../service'
 
-export function RegisterPage() {
+export function LoginPage() {
   const history = useHistory()
   const [form, setForm] = useState<Form>({
-    name: '',
     email: '',
     password: '',
-    confirmPassword: '',
   })
 
   function handleInputChange(event: any) {
@@ -31,18 +29,15 @@ export function RegisterPage() {
   function handleSubmit() {
     if (hasEmptyField()) {
       toogleErrorToast('Preencha corretamente todos os campos!')
-    } else if (form.password !== form.confirmPassword) {
-      toogleErrorToast('As senhas não coincidem!')
     } else {
-      createUser()
+      login()
     }
   }
 
-  async function createUser() {
-    const wasSuccesfullyCreate = await Api.registerUser(JSON.stringify(form))
-    if (wasSuccesfullyCreate) {
-      //TODO redirect to login screen
-      history.push('/')
+  async function login() {
+    const wasSuccesfullyLoggedIn = await Api.loginUser(JSON.stringify(form))
+    if (wasSuccesfullyLoggedIn) {
+      // history.push('/')
     }
   }
 
@@ -74,7 +69,7 @@ export function RegisterPage() {
     id: string,
     label: string,
     value: any,
-    type?: string
+    type: string
   ) {
     return (
       <div className='input-register-wrapper'>
@@ -82,7 +77,7 @@ export function RegisterPage() {
         <input
           id={id}
           name={id}
-          type={type || 'string'}
+          type={type}
           value={value}
           onChange={handleInputChange}
         />
@@ -92,30 +87,26 @@ export function RegisterPage() {
 
   function renderForm() {
     return (
-      <form className='register-form'>
-        {renderInputAndLabel('name', 'Nome', form.name)}
+      <form className='login-form'>
         {renderInputAndLabel('email', 'E-mail', form.email, 'email')}
         {renderInputAndLabel('password', 'Senha', form.password, 'password')}
-        {renderInputAndLabel(
-          'confirmPassword',
-          'Confirmar Senha',
-          form.confirmPassword,
-          'password'
-        )}
-
-        <Button label='Cadastrar' onClick={handleSubmit} />
+        <Button label='Entrar' onClick={handleSubmit} />
       </form>
     )
   }
 
   function renderContent() {
     return (
-      <div className='register-content content'>
-        <div className='register-form-wrapper'>
+      <div className='login-content content'>
+        <div>
           <img src={logo} alt='donations tracker' className='logo' />
-          <h4>Realize seu cadastro</h4>
-          <h4>e tenha controle de suas doações</h4>
+        </div>
+        <div className='login-form-wrapper'>
+          <h3>Faça Login</h3>
           {renderForm()}
+          <h4>
+            ou <Link to='/register'>Cadastre-se</Link>
+          </h4>
         </div>
       </div>
     )
