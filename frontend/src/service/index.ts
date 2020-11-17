@@ -22,4 +22,9 @@ export class Api {
   static saveDonation(form: any) {
     return requestAxios.post('/donation/save', form)
   }
+
+  static async registerUser(data: any) {
+    const { status } = await requestAxios.post('/user', data)
+    return status === 201
+  }
 }

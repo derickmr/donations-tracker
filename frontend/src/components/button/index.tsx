@@ -5,10 +5,10 @@ import { ButtonProps } from './types'
 import './index.css'
 
 export function Button(props: ButtonProps) {
-  const { label } = props
+  const { label, onClick } = props
 
   return (
-    <button type='button' className='button'>
+    <button type='button' className='button' onClick={onClick}>
       {label}
     </button>
   )
