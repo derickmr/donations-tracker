@@ -30,7 +30,7 @@ export function Header() {
             </Link>
           </li>
           <li>
-            <Link className='link' to='/login'>
+            <Link className='link' to='/profile'>
               <img src={user} alt='user' />
             </Link>
           </li>
