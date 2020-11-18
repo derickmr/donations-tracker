@@ -1,0 +1,36 @@
+.login-content {
+  flex-direction: row;
+  height: 90vh;
+}
+
+.login-content .logo {
+  width: 450px;
+}
+
+.login-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 70px;
+}
+
+.login-form-wrapper h3 {
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.login-form-wrapper h4 {
+  color: gray;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.login-form-wrapper h4 a {
+  color: gray;
+}
+
+.login-form-wrapper button {
+  margin: 25px auto;
+  width: 100%;
+  max-width: 200px;
+}

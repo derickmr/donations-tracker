@@ -11,7 +11,7 @@ export function SearchOng() {
         <h2>Explorar ONGs</h2>
         <div className='input-button-wrapper'>
           <input type='text' placeholder='Buscar por nome' />
-          <Button label='Pesquisar' />
+          <Button label='Pesquisar' onClick={() => {}} />
         </div>
       </div>
     </div>

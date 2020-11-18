@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 
 import menu from '../../assets/menu.svg'
 import logo from '../../assets/logoName.png'
+import donation from '../../assets/donation.svg'
+import home from '../../assets/home.svg'
+import user from '../../assets/user.svg'
 
 import './index.css'
 
@@ -18,17 +21,17 @@ export function Header() {
         <ul>
           <li>
             <Link className='link' to='/'>
-              Home
+              <img src={home} alt='home' />
             </Link>
           </li>
           <li>
             <Link className='link' to='/donations'>
-              Minhas Doações
+              <img src={donation} alt='donation' />
             </Link>
           </li>
           <li>
-            <Link className='link' to='/'>
-              Link 3
+            <Link className='link' to='/login'>
+              <img src={user} alt='user' />
             </Link>
           </li>
         </ul>

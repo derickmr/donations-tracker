@@ -1,7 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import './index.css'
-import { DonationPage, Home, ONGDetail, DonationsList } from './pages'
+import 'react-toastify/dist/ReactToastify.css'
+
+import {
+  DonationPage,
+  Home,
+  ONGDetail,
+  DonationsList,
+  RegisterPage,
+  LoginPage,
+} from './pages'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { UserDetails } from './pages/user-details'
@@ -14,6 +24,8 @@ ReactDOM.render(
       <Route path='/ong/:id' component={ONGDetail} />
       <Route path='/donations' component={DonationsList} />
       <Route path='/userDetails' component={UserDetails} />
+      <Route path='/register' component={RegisterPage} />
+      <Route path='/login' component={LoginPage} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
