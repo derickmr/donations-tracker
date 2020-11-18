@@ -19,7 +19,7 @@ class UserController extends AbstractController implements Controller {
         this.router.post('', this.create.bind(this));
         this.router.put('', this.update.bind(this));
         this.router.delete('', this.delete.bind(this));
-        this.router.get('', this.get.bind(this));
+        this.router.get('/:email', this.get.bind(this));
         this.router.get('/all', this.getAll.bind(this));
         this.router.post('/login', this.login.bind(this));
         this.router.post('/logout', this.logout.bind(this));
@@ -78,7 +78,7 @@ class UserController extends AbstractController implements Controller {
     public async get(request: Request, response: Response) {
         this.validateBody(request, response);
         try {
-            var userDTO: UserDTO = await this.userFacade.get(request.body.email);
+            var userDTO: UserDTO = await this.userFacade.get(request.params.email);
             response.send(userDTO);
         } catch (error) {
             response.status(404).send("No user found for email" + request.body.email + ", cause: " + error)

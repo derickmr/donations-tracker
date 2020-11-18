@@ -16,6 +16,7 @@ export class User {
     @Column()
     password: string;
 
-    @OneToMany(() => Donation, donation => donation.user)
+    @OneToMany(() => Donation, donation => donation.user,
+    {onUpdate: 'CASCADE', onDelete: 'CASCADE'})
     donations: Donation[];
 }
