@@ -42,8 +42,7 @@ export function RegisterPage() {
   async function createUser() {
     const wasSuccesfullyCreate = await Api.registerUser(JSON.stringify(form))
     if (wasSuccesfullyCreate) {
-      //TODO redirect to login screen
-      history.push('/')
+      history.push('/login')
     }
   }
 

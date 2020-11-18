@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { User } from '../pages/user-details/types'
 
 const requestAxios = axios.create({
   baseURL: 'http://localhost:3000',
@@ -24,11 +25,17 @@ export class Api {
   }
 
   static getUser(email: string){
-    return requestAxios.post('/user', email);
+    const response = requestAxios.get(`/user/${email}`);
+    return response;
   }
 
   static async registerUser(data: any) {
     const { status } = await requestAxios.post('/user', data)
+    return status === 201
+  }
+
+  static async updateUser(user: any) {
+    const { status } = await requestAxios.put('/user', user)
     return status === 201
   }
 

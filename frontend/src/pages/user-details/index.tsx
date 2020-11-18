@@ -6,32 +6,12 @@ import { Header, Loader, Button } from '../../components'
 
 import { Api } from '../../service'
 
-import { User } from './types'
-
-const MOCKED_USER = {
-  data: {
-    user: {
-      firstName: 'Teste',
-      lastName: 'Teste1',
-      email: 'teste1@email.com',
-      donations: [
-        {
-          id: 1,
-          amount: 123,
-          projectId: '4123',
-        },
-      ],
-      isAuthenticated: true,
-      token: 'aslfjaslkfjsa',
-    },
-  },
-}
+import { UpdateUser, User } from './types'
 
 const initialValues = {
   firstName: '',
   lastName: '',
   email: '',
-  donations: [],
   isAuthenticated: false,
   token: '',
 }
@@ -46,11 +26,10 @@ export function UserDetails() {
   useEffect(() => {
     async function getData() {
       setIsLoading(true)
-      //TODO: get user from be
-      // const { data } = await Api.getUser(email);
-      const { data } = MOCKED_USER
-      setDetails(data.user)
-      setForm(data.user)
+      const email = localStorage.getItem("email");
+      const { data } = await Api.getUser(email!);
+      setDetails(data)
+      setForm(data)
       setIsLoading(false)
     }
 
@@ -72,7 +51,12 @@ export function UserDetails() {
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    //TODO: call update user from be
+    let updateUser: UpdateUser = new UpdateUser('','','');
+    updateUser.email = form.email;
+    updateUser.firstName = form.firstName;
+    updateUser.lastName = form.lastName;
+    const response = Api.updateUser(updateUser);
+    window.location.reload();
   }
 
   function renderInputAndLabel(
@@ -95,6 +79,27 @@ export function UserDetails() {
     )
   }
 
+  function renderReadOnlyInputAndLabel(
+    id: string,
+    label: string,
+    value: any,
+    type?: string
+  ) {
+    return (
+      <div className='input-wrapper'>
+        <label htmlFor={id}>{label}</label>
+        <input
+          id={id}
+          name={id}
+          type={type || 'string'}
+          value={value}
+          readOnly
+          onChange={handleInputChange}
+        />
+      </div>
+    )
+  }
+
   function renderForm() {
     return (
       <form id='userForm'>
@@ -104,7 +109,7 @@ export function UserDetails() {
         </div>
 
         <div className='form-row'>
-          {renderInputAndLabel('email', 'Email', form.email)}
+          {renderReadOnlyInputAndLabel('email', 'Email', form.email)}
           <Button label='Atualizar dados' onClick={handleSubmit} />
         </div>
       </form>

@@ -37,11 +37,6 @@ export function DonationPage() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    console.log(form.amount)
-    console.log(form.projectId)
-    console.log(form.firstName)
-    console.log(form.lastName)
-    console.log(form.email)
     if (form.projectId) {
       await Api.saveDonation(JSON.stringify(form));
     }
