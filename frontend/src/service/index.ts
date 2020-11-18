@@ -22,4 +22,8 @@ export class Api {
   static saveDonation(form: any) {
     return requestAxios.post('/donation/save', form)
   }
+
+  static getUser(email: string){
+    return requestAxios.post('/user', email);
+  }
 }

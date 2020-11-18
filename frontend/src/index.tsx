@@ -4,6 +4,7 @@ import './index.css'
 import { DonationPage, Home, ONGDetail, DonationsList } from './pages'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { UserDetails } from './pages/user-details'
 
 ReactDOM.render(
   <BrowserRouter>
@@ -12,6 +13,7 @@ ReactDOM.render(
       <Route path='/donate/:id' component={DonationPage} />
       <Route path='/ong/:id' component={ONGDetail} />
       <Route path='/donations' component={DonationsList} />
+      <Route path='/userDetails' component={UserDetails} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
