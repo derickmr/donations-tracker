@@ -33,8 +33,9 @@ export class Api {
   }
 
   static async loginUser(data: any) {
-    const a = await requestAxios.post('/user/login', data)
-    console.log(a)
-    return a
+    const response = await requestAxios.post('/user/login', data)
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("email", response.data.email);
+    return response.status === 200;
   }
 }
