@@ -14,7 +14,8 @@ import { Api } from '../../service'
 export function RegisterPage() {
   const history = useHistory()
   const [form, setForm] = useState<Form>({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -93,7 +94,8 @@ export function RegisterPage() {
   function renderForm() {
     return (
       <form className='register-form'>
-        {renderInputAndLabel('name', 'Nome', form.name)}
+        {renderInputAndLabel('firstName', 'Nome', form.firstName)}
+        {renderInputAndLabel('lastName', 'Nome', form.lastName)}
         {renderInputAndLabel('email', 'E-mail', form.email, 'email')}
         {renderInputAndLabel('password', 'Senha', form.password, 'password')}
         {renderInputAndLabel(
