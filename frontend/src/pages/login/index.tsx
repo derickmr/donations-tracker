@@ -37,7 +37,7 @@ export function LoginPage() {
   async function login() {
     const wasSuccesfullyLoggedIn = await Api.loginUser(JSON.stringify(form))
     if (wasSuccesfullyLoggedIn) {
-      // history.push('/')
+      history.push('/')
     }
   }
 
