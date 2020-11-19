@@ -58,7 +58,7 @@ class DonationController extends AbstractController implements Controller {
                 response.send(donations);
             } catch (error: any) {
                 response.status(400).send("Failed to retrieve search donations, cause: " + error)
-            }  
+            }
         }
     }
 
@@ -88,7 +88,7 @@ class DonationController extends AbstractController implements Controller {
         const donationForm = new DonationForm();
         donationForm.firstname = json.firstName;
         donationForm.lastname = json.lastName;
-        donationForm.email = json.userEmail;
+        donationForm.email = json.email;
         donationForm.projectId = json.projectId;
         donationForm.amount = json.amount;
 
