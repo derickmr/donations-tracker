@@ -20,7 +20,7 @@ class DonationController extends AbstractController implements Controller {
         this.router = express.Router();
         this.router.post('/submit', this.submit.bind(this));
         this.router.post('/save', super.verifyJWT, this.save.bind(this));
-        this.router.get('/all', super.verifyJWT, this.getAll.bind(this));
+        this.router.get('/all/:email', super.verifyJWT, this.getAll.bind(this));
         this.router.get('/search', super.verifyJWT, this.search.bind(this));
         this.router.get('/user', this.getUser.bind(this));
         this.donationService = new DefaultDonationService();
@@ -63,9 +63,9 @@ class DonationController extends AbstractController implements Controller {
     }
 
     public async getAll(request: Request, response: Response) {
-        if (request.body) {
+        if (request.params) {
             try {
-                var donations: Donation[] = await this.donationService.getAll(request.body.userEmail);
+                var donations: Donation[] = await this.donationService.getAll(request.params.email);
                 response.send(donations);
             } catch (error: any) {
                 response.status(400).send("Failed to retrieve all donations, cause: " + error)
