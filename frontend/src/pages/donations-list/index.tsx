@@ -17,7 +17,7 @@ export function DonationsList() {
   useEffect(() => {
     async function getData() {
       setIsLoading(true)
-      const { data } = await Api.getDonations()
+      const { data } = await Api.getDonations(localStorage.getItem("email"));
       setDonations(data.organization)
 
       setIsLoading(false)

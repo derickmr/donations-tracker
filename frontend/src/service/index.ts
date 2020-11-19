@@ -46,7 +46,7 @@ export class Api {
     return response.status === 200
   }
 
-  static getDonations() {
-    return requestAxios.post('/donation/all')
+  static getDonations(email: any) {
+    return requestAxios.get(`/donation/all/${email}`)
   }
 }
