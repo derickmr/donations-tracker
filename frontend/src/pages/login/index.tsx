@@ -98,7 +98,7 @@ export function LoginPage() {
   function renderContent() {
     return (
       <div className='login-content content'>
-        <div>
+        <div className='logo-wrapper'>
           <img src={logo} alt='donations tracker' className='logo' />
         </div>
         <div className='login-form-wrapper'>

@@ -34,3 +34,13 @@
   width: 100%;
   max-width: 200px;
 }
+
+@media (max-width: 768px) {
+  .login-content .logo-wrapper {
+    display: none;
+  }
+
+  .login-form-wrapper {
+    margin-left: 0;
+  }
+}

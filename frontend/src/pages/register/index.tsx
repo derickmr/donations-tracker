@@ -94,7 +94,7 @@ export function RegisterPage() {
     return (
       <form className='register-form'>
         {renderInputAndLabel('firstName', 'Nome', form.firstName)}
-        {renderInputAndLabel('lastName', 'Nome', form.lastName)}
+        {renderInputAndLabel('lastName', 'Sobrenome', form.lastName)}
         {renderInputAndLabel('email', 'E-mail', form.email, 'email')}
         {renderInputAndLabel('password', 'Senha', form.password, 'password')}
         {renderInputAndLabel(
