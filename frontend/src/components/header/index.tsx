@@ -17,6 +17,7 @@ export function Header() {
         <li>
           <Link className='link' to='/donations'>
             <img src={donation} alt='donation' />
+            <span>Minhas Doações</span>
           </Link>
         </li>
       )
@@ -37,12 +38,14 @@ export function Header() {
           <li>
             <Link className='link' to='/'>
               <img src={home} alt='home' />
+              <span>Home</span>
             </Link>
           </li>
           {renderDonationsLink()}
           <li>
             <Link className='link' to='/profile'>
               <img src={user} alt='user' />
+              <span>Perfil</span>
             </Link>
           </li>
         </ul>

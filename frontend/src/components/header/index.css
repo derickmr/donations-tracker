@@ -61,6 +61,10 @@ input[type='checkbox'] {
   height: 25px;
 }
 
+.header ul li a span {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .menu-icon {
     display: block;
@@ -85,8 +89,18 @@ input[type='checkbox'] {
     border-bottom: 1px solid #e6e6e6;
   }
 
+  .header ul li a {
+    display: flex;
+    align-items: center;
+  }
+
   input[type='checkbox']:checked ~ ul {
     transform: translateX(0%);
+  }
+
+  .header ul li a span {
+    display: inline;
+    margin-left: 20px;
   }
 }
 
