@@ -58,7 +58,7 @@ export class DefaultDonationService implements DonationService {
             }
             const donations: Donation[] = await query.getMany();
             resolve(donations);
-        });    
+        });
     }
 
     async getAll(email: string): Promise<Donation[]> {
@@ -73,6 +73,9 @@ export class DefaultDonationService implements DonationService {
             if (connection === undefined){
                 connection = await createConnection();
             }
+
+            console.log("aaaa");
+            console.log("email: " + email);
 
             const donations: Donation[] = await connection
                 .getRepository(Donation)
@@ -161,7 +164,7 @@ export class DefaultDonationService implements DonationService {
                 donation.user = user;
                 donation.date = new Date();
 
-                console.log("Saving donation...");    
+                console.log("Saving donation...");
                 await connection.manager.save(donation);
             }
     }

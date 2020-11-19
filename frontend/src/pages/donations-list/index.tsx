@@ -18,7 +18,7 @@ export function DonationsList() {
     async function getData() {
       setIsLoading(true)
       const { data } = await Api.getDonations(localStorage.getItem("email"));
-      setDonations(data.organization)
+      setDonations(data)
 
       setIsLoading(false)
     }
