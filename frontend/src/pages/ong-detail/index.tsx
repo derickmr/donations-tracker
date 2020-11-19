@@ -32,6 +32,15 @@ export function ONGDetail() {
     })
   }
 
+  function renderDonationButton() {
+    const isLogged = localStorage.getItem('token')
+    if (isLogged) {
+      return <ButtonLink label='Doar valor' url={`/donate/${details?.id}`} />
+    }
+
+    return null
+  }
+
   function renderContent() {
     if (isLoading) {
       return (
@@ -43,12 +52,10 @@ export function ONGDetail() {
 
     if (details) {
       return (
-        <div className='content'>
+        <div className='ong-detail-content content'>
           <div className='image-banner' />
           <div className='ong-buttons-container'>
-            <div>
-              <ButtonLink label='Doar valor' url={`/donate/${details.id}`} />
-            </div>
+            <div>{renderDonationButton()}</div>
           </div>
           <div className='details-container'>
             <div className='info-container'>

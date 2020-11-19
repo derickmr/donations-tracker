@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
 import { Header } from '../../components'
@@ -8,6 +9,7 @@ import './index.css'
 import { Api } from '../../service'
 
 export function DonationPage() {
+  const history = useHistory()
   let { id } = useParams<RouteParams>()
 
   const [form, setForm] = useState<Form>({
@@ -24,7 +26,13 @@ export function DonationPage() {
   })
 
   useEffect(() => {
-    require('./braintree-script.js')
+    const isLogged = localStorage.getItem('token')
+
+    if (!isLogged) {
+      history.replace('/login')
+    } else {
+      require('./braintree-script.js')
+    }
   }, [])
 
   function handleInputChange(event: any) {
@@ -38,7 +46,7 @@ export function DonationPage() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (form.projectId) {
-      await Api.saveDonation(JSON.stringify(form));
+      await Api.saveDonation(JSON.stringify(form))
     }
   }
 

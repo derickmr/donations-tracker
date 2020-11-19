@@ -10,6 +10,21 @@ import user from '../../assets/user.svg'
 import './index.css'
 
 export function Header() {
+  function renderDonationsLink() {
+    const isLogged = localStorage.getItem('token')
+    if (isLogged) {
+      return (
+        <li>
+          <Link className='link' to='/donations'>
+            <img src={donation} alt='donation' />
+          </Link>
+        </li>
+      )
+    }
+
+    return null
+  }
+
   return (
     <header>
       <div className='header'>
@@ -24,11 +39,7 @@ export function Header() {
               <img src={home} alt='home' />
             </Link>
           </li>
-          <li>
-            <Link className='link' to='/donations'>
-              <img src={donation} alt='donation' />
-            </Link>
-          </li>
+          {renderDonationsLink()}
           <li>
             <Link className='link' to='/profile'>
               <img src={user} alt='user' />

@@ -24,9 +24,9 @@ export class Api {
     return requestAxios.post('/donation/save', form)
   }
 
-  static getUser(email: string){
-    const response = requestAxios.get(`/user/${email}`);
-    return response;
+  static getUser(email: string) {
+    const response = requestAxios.get(`/user/${email}`)
+    return response
   }
 
   static async registerUser(data: any) {
@@ -41,8 +41,12 @@ export class Api {
 
   static async loginUser(data: any) {
     const response = await requestAxios.post('/user/login', data)
-    localStorage.setItem("token", response.data.token);
-    localStorage.setItem("email", response.data.email);
-    return response.status === 200;
+    localStorage.setItem('token', response.data.token)
+    localStorage.setItem('email', response.data.email)
+    return response.status === 200
+  }
+
+  static getDonations() {
+    return requestAxios.post('/donation/all')
   }
 }

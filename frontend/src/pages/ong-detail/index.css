@@ -57,7 +57,7 @@
   margin: 20px 0px;
 }
 
-.info-container {
+.ong-detail-content .info-container {
   display: flex;
   align-items: center;
 }
@@ -84,12 +84,12 @@
 }
 
 @media (max-width: 768px) {
-  .info-container {
+  .ong-detail-content .info-container {
     flex-direction: column-reverse;
     align-items: flex-start;
   }
 
-  .info-container img {
+  .ong-detail-content .info-container img {
     margin-top: 20px;
   }
 

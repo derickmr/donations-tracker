@@ -1,45 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import './index.css'
 
-import { Header, ButtonLink } from '../../components'
+import { Header, ButtonLink, Loader } from '../../components'
+
+import { Api } from '../../service'
 
 import { Donation } from './types'
 
-const MOCKED_DONATIONS = [
-  {
-    id: 1,
-    name: 'Samadhan',
-    city: 'New Delhi',
-    state: 'Delhi',
-    country: 'India',
-    donatedValue: 'R$ 200,00',
-    date: '25/10/2020',
-    logoUrl: 'https://www.globalgiving.org/pfil/organ/11/orglogo.jpg',
-    ongId: 11,
-  },
-  {
-    id: 2,
-    name: 'Ruchika Social Service Organisation',
-    city: 'Bhubaneswar',
-    state: 'Odisha',
-    country: 'India',
-    donatedValue: 'R$ 100,00',
-    date: '26/10/2020',
-    logoUrl: 'http://www.ruchika.org/',
-    ongId: 12,
-  },
-]
-
 export function DonationsList() {
+  const history = useHistory()
+
+  const [donations, setDonations] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    async function getData() {
+      setIsLoading(true)
+      const { data } = await Api.getDonations()
+      setDonations(data.organization)
+
+      setIsLoading(false)
+    }
+
+    const isLogged = localStorage.getItem('token')
+
+    if (!isLogged) {
+      history.replace('/login')
+    } else {
+      getData()
+    }
+  }, [])
+
   function renderDonation(donation: Donation) {
     return (
       <tr key={donation.id}>
         <th>{donation.id}</th>
-        <td>{donation.name}</td>
-        <td>{donation.donatedValue}</td>
-        <td>{donation.date}</td>
+        <td>{`ONG ${donation.projectId}`}</td>
+        <td>{`R$ ${donation.amount}`}</td>
+        <td>{new Date(donation.date).toLocaleDateString()}</td>
         <td>
-          <ButtonLink label='Ver ONG' url={`/ong/${donation.ongId}`} />
+          <ButtonLink label='Ver ONG' url={`/ong/${donation.projectId}`} />
         </td>
       </tr>
     )
@@ -57,14 +58,20 @@ export function DonationsList() {
             <th>Ações</th>
           </tr>
         </thead>
-        <tbody>
-          {MOCKED_DONATIONS.map((donation) => renderDonation(donation))}
-        </tbody>
+        <tbody>{donations.map((donation) => renderDonation(donation))}</tbody>
       </table>
     )
   }
 
   function renderContent() {
+    if (isLoading) {
+      return (
+        <div className='loader-container'>
+          <Loader />
+        </div>
+      )
+    }
+
     return (
       <div className='content donations-list'>
         <div className='image-banner' />
