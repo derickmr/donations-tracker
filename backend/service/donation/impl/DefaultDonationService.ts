@@ -134,7 +134,7 @@ export class DefaultDonationService implements DonationService {
         let connection;
         try {
             connection = getConnectionManager().get("default");
-        } catch (e: any){
+        } catch (e){
             console.log(e);
         }
 
