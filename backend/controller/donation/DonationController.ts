@@ -56,7 +56,7 @@ class DonationController extends AbstractController implements Controller {
             try {
                 var donations: Donation[] = await this.donationService.search(this.getDonationSearchParameters(request.body));
                 response.send(donations);
-            } catch (error: any) {
+            } catch (error) {
                 response.status(400).send("Failed to retrieve search donations, cause: " + error)
             }
         }
@@ -67,7 +67,7 @@ class DonationController extends AbstractController implements Controller {
             try {
                 var donations: Donation[] = await this.donationService.getAll(request.params.email);
                 response.send(donations);
-            } catch (error: any) {
+            } catch (error) {
                 response.status(400).send("Failed to retrieve all donations, cause: " + error)
             }
         }
