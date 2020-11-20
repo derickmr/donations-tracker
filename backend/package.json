@@ -1,6 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.13.0"
+  },
   "description": "Donations tracker backend",
   "main": "index.js",
   "scripts": {
