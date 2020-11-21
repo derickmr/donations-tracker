@@ -19,7 +19,7 @@ class UserController extends AbstractController implements Controller {
         this.router.post('', this.create.bind(this));
         this.router.put('', this.update.bind(this));
         this.router.delete('', this.delete.bind(this));
-        this.router.get('/:email', this.get.bind(this));
+        this.router.get('/search/:email', this.get.bind(this));
         this.router.get('/all', this.getAll.bind(this));
         this.router.post('/login', this.login.bind(this));
         this.router.post('/logout', this.logout.bind(this));
