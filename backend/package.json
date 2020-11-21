@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "tsc",
-    "build": "npx tsc -p tsconfig.json",
+    "build": "npx tsc",
     "start": "npm run build && node js/Server.js"
   },
   "author": "",
