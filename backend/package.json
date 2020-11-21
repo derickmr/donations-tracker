@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.2",
     "typeorm": "^0.2.28",

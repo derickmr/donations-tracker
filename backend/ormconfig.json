@@ -1,6 +1,8 @@
 {
    "type": "postgres",
-   "host": "postgres://tdexambsltbxoi:6c8234e8d93e8e165b19155dbdad2354fe815fb6a9af009dd3a001d1a5cc8aa3@ec2-54-205-248-255.compute-1.amazonaws.com:5432/de049all18v7i0",
+   "url": "postgres://tdexambsltbxoi:6c8234e8d93e8e165b19155dbdad2354fe815fb6a9af009dd3a001d1a5cc8aa3@ec2-54-205-248-255.compute-1.amazonaws.com:5432/de049all18v7i0",
+   "username": "tdexambsltbxoi",
+   "password": "6c8234e8d93e8e165b19155dbdad2354fe815fb6a9af009dd3a001d1a5cc8aa3",
    "database": "donations_tracker",
    "synchronize": true,
    "logging": false,
