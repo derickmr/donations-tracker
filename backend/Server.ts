@@ -23,10 +23,11 @@ class Server {
     }
 
     private loadConfiguration() {
-        this.application.use(function(req, res, next) {
-            res.header('Access-Control-Allow-Origin', '*');
-            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-            res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+        this.application.all("*", function (req: any, res: any, next: any) {
+            var origin = req.get('origin');
+            res.header('Access-Control-Allow-Origin', origin);
+            res.header("Access-Control-Allow-Headers", "X-Requested-With");
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
             next();
         });
         this.application.use(bodyParser.json());
