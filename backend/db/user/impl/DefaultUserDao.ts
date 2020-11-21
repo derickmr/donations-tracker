@@ -24,16 +24,16 @@ export class DefaultUserDao implements UserDao {
         console.log("Deleted user with email: " + email);
     }
     async get(email: string): Promise<User> {
-        return new Promise(async (resolve, reject) => {
-            const user: User = await this.connection.getRepository(User).findOne({ email: email }) as User;
+        return new Promise<User>(async (resolve, reject) => {
+            const user: User = await this.connection.getRepository(User).findOne({ email: email } as User) as User;
             console.log("Retrieved user with email " + email + " from the database.");
             resolve(user);
-        });
+        }) as Promise<User>;
     }
     async getAll(): Promise<User[]> {
         return new Promise(async (resolve, reject) => {
             console.log("Retrieving users from the database...");
-            const users: User[] = await this.connection.manager.find(User);
+            const users: User[] = await this.connection.manager.find(User) as User[];
             console.log("Retrieving users: ", users);
             resolve(users)
         });
