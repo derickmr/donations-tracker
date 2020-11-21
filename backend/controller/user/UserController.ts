@@ -31,7 +31,7 @@ class UserController extends AbstractController implements Controller {
         try {
             var userDTO: UserDTO = await this.userFacade.login(request.body.email, request.body.password);
             var token = jwt.sign({id: userDTO.email}, "AUTH_SECRET_DONATIONS_TRACKER", {
-                expiresIn: 1200
+                expiresIn: 10000000
             });
             userDTO.isAuthenticated = true;
             userDTO.token = token;
