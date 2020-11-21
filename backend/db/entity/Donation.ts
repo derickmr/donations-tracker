@@ -7,7 +7,7 @@ export class Donation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('double')
+    @Column('double precision')
     amount: Double;
 
     @Column()
