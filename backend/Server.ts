@@ -5,10 +5,9 @@ import { Controller } from './controller/Controller';
 import ONGController from './controller/ong/ONGController';
 import DonationController from './controller/donation/DonationController';
 import UserController from './controller/user/UserController';
-import {DefaultTokenGenerationService} from './service/authentication/impl/DefaultTokenGenerationService'
 import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./db/entity/User";
+
+var cors = require('cors');
 
 class Server {
     application: express.Application;
@@ -26,6 +25,7 @@ class Server {
     private loadConfiguration() {
         this.application.use(bodyParser.json());
         this.application.use(bodyParser.urlencoded({ extended: true }));
+        this.application.use(cors);
         this.application.use(function(req, res, next) {
             res.header("Access-Control-Allow-Origin", "localhost");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
