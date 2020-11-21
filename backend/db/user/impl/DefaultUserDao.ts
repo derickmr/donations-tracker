@@ -24,11 +24,7 @@ export class DefaultUserDao implements UserDao {
         console.log("Deleted user with email: " + email);
     }
     async get(email: string): Promise<User> {
-<<<<<<< HEAD
         return new Promise<User>(async (resolve, reject) => {
-=======
-        return new Promise(async (resolve, reject) => {
->>>>>>> cc0fdfb4491f8c6a5a21847ebdaf877679585c52
             const user: User = await this.connection.getRepository(User).findOne({ email: email } as User) as User;
             console.log("Retrieved user with email " + email + " from the database.");
             resolve(user);
