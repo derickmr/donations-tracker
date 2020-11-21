@@ -27,7 +27,7 @@ export class Api {
   }
 
   static getUser(email: string) {
-    const response = requestAxios.get(`/user/${email}`)
+    const response = requestAxios.get(`/user/search/${email}`)
     return response
   }
 
