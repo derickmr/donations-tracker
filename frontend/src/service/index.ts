@@ -4,8 +4,10 @@ import { User } from '../pages/user-details/types'
 const requestAxios = axios.create({
   baseURL: 'https://donations-tracker-backend.herokuapp.com/',
   timeout: 10000,
-  headers: { 'Content-Type': 'application/json' },
-})
+  headers: { 'Content-Type': 'application/json',
+            'x-access-token': localStorage.getItem("token")
+  },
+});
 
 export class Api {
   static getONGs() {
@@ -25,7 +27,7 @@ export class Api {
   }
 
   static getUser(email: string) {
-    const response = requestAxios.get(`/user/${email}`)
+    const response = requestAxios.get(`/user/search/${email}`)
     return response
   }
 
