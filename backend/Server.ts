@@ -7,8 +7,6 @@ import DonationController from './controller/donation/DonationController';
 import UserController from './controller/user/UserController';
 import "reflect-metadata";
 
-var cors = require('cors');
-
 class Server {
     application: express.Application;
     router: express.Router = express.Router();
@@ -23,16 +21,8 @@ class Server {
     }
 
     private loadConfiguration() {
-        this.application.all("*", function (req: any, res: any, next: any) {
-            var origin = req.get('origin');
-            res.header('Access-Control-Allow-Origin', origin);
-            res.header("Access-Control-Allow-Headers", "X-Requested-With");
-            res.header('Access-Control-Allow-Headers', 'Content-Type');
-            next();
-        });
         this.application.use(bodyParser.json());
         this.application.use(bodyParser.urlencoded({ extended: true }));
-        this.application.use(cors());
         this.application.use('/', this.router);
     }
 
