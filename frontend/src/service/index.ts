@@ -1,13 +1,14 @@
 import axios from 'axios'
-import { User } from '../pages/user-details/types'
 
 const requestAxios = axios.create({
-  baseURL: 'https://donations-tracker-backend.herokuapp.com/',
+  baseURL:
+    'https://cors-anywhere.herokuapp.com/https://donations-tracker-backend.herokuapp.com/',
   timeout: 10000,
-  headers: { 'Content-Type': 'application/json',
-            'x-access-token': localStorage.getItem("token")
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': localStorage.getItem('token'),
   },
-});
+})
 
 export class Api {
   static getONGs() {
@@ -50,6 +51,6 @@ export class Api {
 
   static async getDonations(email: any) {
     const response = await requestAxios.get(`/donation/all/${email}`)
-    return response;
+    return response
   }
 }
