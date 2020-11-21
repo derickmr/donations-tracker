@@ -2,7 +2,7 @@ import axios from 'axios'
 import { User } from '../pages/user-details/types'
 
 const requestAxios = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://donations-tracker-backend.herokuapp.com/',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 })
