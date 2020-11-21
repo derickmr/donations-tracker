@@ -19,10 +19,12 @@ export class DefaultUserDao implements UserDao {
         await this.connection.manager.save(user);
         console.log("Saved a new user with email: " + user.email);
     }
+
     async delete(email: string) {
         this.connection.getRepository(User).delete({ email: email });
         console.log("Deleted user with email: " + email);
     }
+
     async get(email: string): Promise<User> {
         return new Promise<User>(async (resolve, reject) => {
             const user: User = await this.connection.getRepository(User).findOne({ email: email } as User) as User;
@@ -30,14 +32,16 @@ export class DefaultUserDao implements UserDao {
             resolve(user);
         }) as Promise<User>;
     }
+
     async getAll(): Promise<User[]> {
         return new Promise(async (resolve, reject) => {
             console.log("Retrieving users from the database...");
             const users: User[] = await this.connection.manager.find(User) as User[];
             console.log("Retrieving users: ", users);
             resolve(users)
-        });
+        }) as Promise<User[]>;
     }
+
     async update(user: User): Promise<User> {
         return new Promise(async (resolve, reject) => {
             console.log("Updating user in the database...");
@@ -50,6 +54,6 @@ export class DefaultUserDao implements UserDao {
             } else {
                 resolve(undefined);
             }
-        });
+        }) as Promise<User>;
     }
 }

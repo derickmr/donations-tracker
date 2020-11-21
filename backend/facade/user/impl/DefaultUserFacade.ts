@@ -18,11 +18,11 @@ export class DefaultUserFacade implements UserFacade {
         try {
             return new Promise((resolve, reject) => {
                 resolve(this.convertUserToUserDTO(user))
-            });
+            }) as Promise<UserDTO>;
         } catch (error) {
             return new Promise((resolve, reject) => {
                 reject("Authentication not possible");
-            });
+            }) as Promise<UserDTO>;
         }
     }
     create(userDTO: UserDTO) {
@@ -39,7 +39,7 @@ export class DefaultUserFacade implements UserFacade {
             } else {
                 reject("No user found.");
             }
-        });
+        }) as Promise<UserDTO>;
     }
     async getAll(): Promise<UserDTO[]> {
         var users: User[] = await this.userService.getAll();
@@ -48,7 +48,7 @@ export class DefaultUserFacade implements UserFacade {
         users.forEach(user => {
             userDTOs.push(this.convertUserToUserDTO(user));
         })
-        return new Promise((resolve, reject) => { resolve(userDTOs) });
+        return new Promise((resolve, reject) => { resolve(userDTOs) }) as Promise<UserDTO[]>;
     }
     async update(userDTO: UserDTO): Promise<UserDTO> {
         var user: User = await this.userService.update(Object.assign(new User(), userDTO));
@@ -58,7 +58,7 @@ export class DefaultUserFacade implements UserFacade {
             } else {
                 reject("Couldn't find user to update.");
             }
-        });
+        }) as Promise<UserDTO>;
     }
 
     convertUserToUserDTO(user: User): UserDTO {

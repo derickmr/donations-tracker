@@ -84,7 +84,7 @@ export class DefaultDonationService implements DonationService {
                 .where("user.email = :email", {email: email})
                 .getMany();
             resolve(donations);
-        });
+        }) as Promise<Donation[]>;
     }
 
     async submitDonation(submitDonationRequest: SubmitDonationRequest) {

@@ -33,6 +33,6 @@ export class DefaultTokenGenerationService implements TokenGenerationService {
                     resolve("");
                 }
             });
-        });
+        }) as Promise<string>;
     }
 }

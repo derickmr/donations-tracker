@@ -28,7 +28,6 @@ export class DefaultONGService implements ONGService {
 
     private async doRequestAllOngs(URL: String): Promise<ONGResponseData> {
         return new Promise((resolve, reject) => {
-
             request.get({
                 headers: { 'accept': 'application/json' },
                 url: URL
@@ -40,13 +39,12 @@ export class DefaultONGService implements ONGService {
                     resolve(new ONGResponseData());
                 }
             });
-        });
+        }) as Promise<ONGResponseData>;
     }
 
     private async doRequestONG(URL: String): Promise<ONGResponseData> {
         console.log("URL: " + URL);
         return new Promise((resolve, reject) => {
-
             request.get({
                 headers: { 'accept': 'application/json' },
                 url: URL
@@ -58,7 +56,7 @@ export class DefaultONGService implements ONGService {
                     resolve(new ONGResponseData());
                 }
             });
-        });
+        }) as Promise<ONGResponseData>;
     }
 
     private replaceNextProjectIDOnRequestURL(nextProjectID: String): String{

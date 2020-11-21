@@ -17,7 +17,7 @@ export class DefaultUserService implements UserService {
             } else {
                 reject("Invalid login");
             }
-        });
+        }) as Promise<User>;
     }
     create(user: User) {
         this.userDao.create(user);
@@ -27,15 +27,15 @@ export class DefaultUserService implements UserService {
     }
     async get(email: string): Promise<User> {
         var user: User = await this.userDao.get(email) as User;
-        return new Promise((resolve, reject) => { resolve(user) });
+        return new Promise((resolve, reject) => { resolve(user) }) as Promise<User>;
     }
     async getAll(): Promise<User[]> {
         var users: User[] = await this.userDao.getAll();
-        return new Promise((resolve, reject) => { resolve(users) });
+        return new Promise((resolve, reject) => { resolve(users) }) as Promise<User[]>;
 
     }
     async update(user: User): Promise<User> {
         var updatedUser: User = await this.userDao.update(user)
-        return new Promise((resolve, reject) => { resolve(updatedUser) });
+        return new Promise((resolve, reject) => { resolve(updatedUser) }) as Promise<User>;
     }
 }
