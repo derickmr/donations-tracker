@@ -44,13 +44,29 @@ export class Api {
 
   static async loginUser(data: any) {
     const response = await requestAxios.post('/user/login', data)
-    localStorage.setItem('token', response.data.token)
-    localStorage.setItem('email', response.data.email)
-    return response.status === 200
+    const requestWasSuccessfull = response.status === 200
+
+    if (requestWasSuccessfull) {
+      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('email', response.data.email)
+    }
+    return requestWasSuccessfull
   }
 
   static async getDonations(email: any) {
     const response = await requestAxios.get(`/donation/all/${email}`)
     return response
+  }
+
+  static async logout(email: string | null) {
+    const response = await requestAxios.post('/user/logout', { email })
+    const requestWasSuccessfull = response.status === 200
+
+    if (requestWasSuccessfull) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('email')
+    }
+
+    return requestWasSuccessfull
   }
 }

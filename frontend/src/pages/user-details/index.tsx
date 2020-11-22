@@ -26,8 +26,8 @@ export function UserDetails() {
   useEffect(() => {
     async function getData() {
       setIsLoading(true)
-      const email = localStorage.getItem("email");
-      const { data } = await Api.getUser(email!);
+      const email = localStorage.getItem('email')
+      const { data } = await Api.getUser(email!)
       setDetails(data)
       setForm(data)
       setIsLoading(false)
@@ -51,12 +51,19 @@ export function UserDetails() {
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    let updateUser: UpdateUser = new UpdateUser('','','');
-    updateUser.email = form.email;
-    updateUser.firstName = form.firstName;
-    updateUser.lastName = form.lastName;
-    const response = Api.updateUser(updateUser);
-    window.location.reload();
+    let updateUser: UpdateUser = new UpdateUser('', '', '')
+    updateUser.email = form.email
+    updateUser.firstName = form.firstName
+    updateUser.lastName = form.lastName
+    const response = Api.updateUser(updateUser)
+    window.location.reload()
+  }
+
+  async function logout() {
+    const wasSuccesfullyLogout = Api.logout(localStorage.getItem('email'))
+    if (wasSuccesfullyLogout) {
+      history.replace('/login')
+    }
   }
 
   function renderInputAndLabel(
@@ -134,7 +141,7 @@ export function UserDetails() {
             <div className='image-perfil' />
             <div className='name-wrapper'>
               <h2>{`${firstName} ${lastName}`}</h2>
-              <Button label='Sair' onClick={() => {}} />
+              <Button label='Sair' onClick={logout} />
             </div>
           </div>
 
