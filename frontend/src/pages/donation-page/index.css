@@ -34,15 +34,11 @@ form#ggPaymentForm {
   margin-left: 50px;
 }
 
-.submit-button {
+#ggPaymentForm button {
   width: 100%;
   margin-top: 20px;
-  background: linear-gradient(90deg, #f86b6a 0%, #fd954e 100%);
-  border-radius: 5px;
   padding: 14px;
-  color: white;
-  border: 0;
-  font-size: 14px;
+  max-width: none;
 }
 
 .form-row {
@@ -68,7 +64,7 @@ form#ggPaymentForm {
     margin-bottom: 50px;
   }
 
-  .submit-button {
+  #ggPaymentForm button {
     margin-left: 0px;
     margin-top: 15px;
   }

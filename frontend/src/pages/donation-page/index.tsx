@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
-import { Header, Button, Input } from '../../components'
+import { Header, Button, Input, Loader } from '../../components'
 import { Form, RouteParams } from './types'
 
 import './index.css'
@@ -16,27 +16,42 @@ import {
   cvvMask,
 } from '../../utils'
 
+const INITAL_VALUES = {
+  firstName: '',
+  lastName: '',
+  projectId: '',
+  amount: 0.0,
+  email: '',
+  cardNumber: '',
+  expirationDate: '',
+  cvv: '',
+  postalCode: '',
+}
+
 export function DonationPage() {
   const history = useHistory()
   let { id } = useParams<RouteParams>()
 
-  const [form, setForm] = useState<Form>({
-    firstName: '',
-    lastName: '',
-    projectId: id,
-    amount: 0.0,
-    email: '',
-    cardNumber: '',
-    expirationDate: '',
-    cvv: '',
-    postalCode: '',
-  })
+  const [form, setForm] = useState<Form>(INITAL_VALUES)
+
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    async function getUserData() {
+      setIsLoading(true)
+      const email = localStorage.getItem('email')
+      const { data } = await Api.getUser(email!)
+
+      setForm({ ...form, ...data, projectId: id })
+      setIsLoading(false)
+    }
+
     const isLogged = localStorage.getItem('token')
 
     if (!isLogged) {
       history.replace('/login')
+    } else {
+      getUserData()
     }
   }, [history])
 
@@ -53,8 +68,20 @@ export function DonationPage() {
         'Não é possível fazer uma doação sem um projeto selecionado'
       )
     } else {
-      await Api.saveDonation(JSON.stringify(form))
+      saveDonation()
     }
+  }
+
+  async function saveDonation() {
+    setIsLoading(true)
+    await Api.saveDonation(JSON.stringify(form))
+    cleanForm()
+    setIsLoading(false)
+  }
+
+  function cleanForm() {
+    const { firstName, lastName, projectId, email } = form
+    setForm({ ...INITAL_VALUES, firstName, lastName, projectId, email })
   }
 
   function toogleErrorToast(message: string) {
@@ -145,6 +172,14 @@ export function DonationPage() {
   }
 
   function renderContent() {
+    if (isLoading) {
+      return (
+        <div className='loader-container'>
+          <Loader />
+        </div>
+      )
+    }
+
     return (
       <div className='donation-content content'>
         <div className='image-banner' />
