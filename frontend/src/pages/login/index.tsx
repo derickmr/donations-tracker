@@ -10,6 +10,7 @@ import { Form } from './types'
 
 import './index.css'
 import { Api } from '../../service'
+import { hasEmptyFields } from '../../utils'
 
 export function LoginPage() {
   const history = useHistory()
@@ -27,7 +28,7 @@ export function LoginPage() {
   }
 
   function handleSubmit() {
-    if (hasEmptyField()) {
+    if (hasEmptyFields(form)) {
       toogleErrorToast('Preencha corretamente todos os campos!')
     } else {
       login()
@@ -39,18 +40,6 @@ export function LoginPage() {
     if (wasSuccesfullyLoggedIn) {
       history.push('/')
     }
-  }
-
-  function hasEmptyField() {
-    let hasEmptyField = false
-
-    Object.values(form).forEach((element) => {
-      if (!element) {
-        hasEmptyField = true
-      }
-    })
-
-    return hasEmptyField
   }
 
   function toogleErrorToast(message: string) {

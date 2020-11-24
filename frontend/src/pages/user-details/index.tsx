@@ -40,7 +40,7 @@ export function UserDetails() {
     } else {
       getData()
     }
-  }, [])
+  }, [history])
 
   function handleInputChange(event: any) {
     const target = event.target
@@ -55,8 +55,11 @@ export function UserDetails() {
     updateUser.email = form.email
     updateUser.firstName = form.firstName
     updateUser.lastName = form.lastName
-    const response = Api.updateUser(updateUser)
-    window.location.reload()
+
+    const successfullUpdate = Api.updateUser(updateUser)
+    if (successfullUpdate) {
+      window.location.reload()
+    }
   }
 
   async function logout() {

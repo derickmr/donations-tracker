@@ -17,7 +17,7 @@ export function DonationsList() {
   useEffect(() => {
     async function getData() {
       setIsLoading(true)
-      const { data } = await Api.getDonations(localStorage.getItem("email"));
+      const { data } = await Api.getDonations(localStorage.getItem('email'))
       setDonations(data)
 
       setIsLoading(false)
@@ -30,7 +30,7 @@ export function DonationsList() {
     } else {
       getData()
     }
-  }, [])
+  }, [history])
 
   function renderDonation(donation: Donation) {
     return (

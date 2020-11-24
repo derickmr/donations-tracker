@@ -24,7 +24,7 @@ export function ONGDetail() {
     }
 
     getData()
-  }, [])
+  }, [id])
 
   function renderThemes() {
     return details?.themes.theme.map((theme) => {
@@ -59,7 +59,7 @@ export function ONGDetail() {
           </div>
           <div className='details-container'>
             <div className='info-container'>
-              <img src={details.logoUrl} className='detail-logo' />
+              <img src={details.logoUrl} className='detail-logo' alt='logo' />
               <div className='info-wrapper'>
                 <h1 className='name'>{details.name}</h1>
                 <h2 className='info'>

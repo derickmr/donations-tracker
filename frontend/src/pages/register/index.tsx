@@ -10,6 +10,7 @@ import { Form } from './types'
 
 import './index.css'
 import { Api } from '../../service'
+import { hasEmptyFields } from '../../utils'
 
 export function RegisterPage() {
   const history = useHistory()
@@ -30,7 +31,7 @@ export function RegisterPage() {
   }
 
   function handleSubmit() {
-    if (hasEmptyField()) {
+    if (hasEmptyFields(form)) {
       toogleErrorToast('Preencha corretamente todos os campos!')
     } else if (form.password !== form.confirmPassword) {
       toogleErrorToast('As senhas não coincidem!')
@@ -44,18 +45,6 @@ export function RegisterPage() {
     if (wasSuccesfullyCreate) {
       history.push('/login')
     }
-  }
-
-  function hasEmptyField() {
-    let hasEmptyField = false
-
-    Object.values(form).forEach((element) => {
-      if (!element) {
-        hasEmptyField = true
-      }
-    })
-
-    return hasEmptyField
   }
 
   function toogleErrorToast(message: string) {
