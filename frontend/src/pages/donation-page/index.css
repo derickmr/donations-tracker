@@ -30,35 +30,8 @@ form#ggPaymentForm {
   margin-left: 40px;
 }
 
-.input-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
 .input-wrapper:nth-child(2) {
   margin-left: 50px;
-}
-
-.input-wrapper input,
-#ggCardNumber,
-#ggCardExpiration,
-#ggCardCvv,
-#ggCardPostal {
-  width: 250px;
-  height: 20px;
-  background-color: #f2f2f2;
-  border: none;
-  padding: 10px;
-  border-radius: 3px;
-}
-
-.input-wrapper input:focus,
-#ggCardNumber.braintree-hosted-fields-focused,
-#ggCardExpiration.braintree-hosted-fields-focused,
-#ggCardCvv.braintree-hosted-fields-focused,
-#ggCardPostal.braintree-hosted-fields-focused {
-  outline: none;
-  box-shadow: 0 0 10px #b1b1b1;
 }
 
 .submit-button {
@@ -70,11 +43,6 @@ form#ggPaymentForm {
   color: white;
   border: 0;
   font-size: 14px;
-}
-
-.input-wrapper label {
-  margin-bottom: 10px;
-  color: #151f2f;
 }
 
 .form-row {

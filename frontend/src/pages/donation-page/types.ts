@@ -8,7 +8,6 @@ export interface Form {
   expirationDate: string
   cvv: string
   postalCode: string
-  paymentNonce: string
 }
 
 export interface RouteParams {

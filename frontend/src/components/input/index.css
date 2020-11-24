@@ -1,0 +1,23 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper input {
+  width: 250px;
+  height: 20px;
+  background-color: #f2f2f2;
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #b1b1b1;
+}
+
+.input-wrapper label {
+  margin-bottom: 10px;
+  color: #151f2f;
+}
