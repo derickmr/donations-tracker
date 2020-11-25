@@ -32,7 +32,7 @@ export function DonationPage() {
   const history = useHistory()
   let { id } = useParams<RouteParams>()
 
-  const [form, setForm] = useState<Form>(INITAL_VALUES)
+  const [form, setForm] = useState<Form>({ ...INITAL_VALUES, projectId: id })
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -42,7 +42,7 @@ export function DonationPage() {
       const email = localStorage.getItem('email')
       const { data } = await Api.getUser(email!)
 
-      setForm({ ...form, ...data, projectId: id })
+      setForm((form) => ({ ...form, ...data }))
       setIsLoading(false)
     }
 

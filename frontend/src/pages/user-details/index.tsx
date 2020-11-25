@@ -89,23 +89,11 @@ export function UserDetails() {
     )
   }
 
-  function renderReadOnlyInputAndLabel(
-    id: string,
-    label: string,
-    value: any,
-    type?: string
-  ) {
+  function renderEmail() {
     return (
       <div className='input-wrapper'>
-        <label htmlFor={id}>{label}</label>
-        <input
-          id={id}
-          name={id}
-          type={type || 'string'}
-          value={value}
-          readOnly
-          onChange={handleInputChange}
-        />
+        <label>Email</label>
+        <p>{form.email}</p>
       </div>
     )
   }
@@ -119,7 +107,7 @@ export function UserDetails() {
         </div>
 
         <div className='form-row'>
-          {renderReadOnlyInputAndLabel('email', 'Email', form.email)}
+          {renderEmail()}
           <Button label='Atualizar dados' onClick={handleSubmit} />
         </div>
       </form>
