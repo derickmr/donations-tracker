@@ -21,7 +21,7 @@ class DonationController extends AbstractController implements Controller {
         this.router.post('/submit', this.submit.bind(this));
         this.router.post('/save', super.verifyJWT, this.save.bind(this));
         this.router.get('/all/:email', super.verifyJWT, this.getAll.bind(this));
-        this.router.get('/search', super.verifyJWT, this.search.bind(this));
+        this.router.post('/search', super.verifyJWT, this.search.bind(this));
         this.router.get('/user', this.getUser.bind(this));
         this.donationService = new DefaultDonationService();
     }
