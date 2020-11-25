@@ -12,7 +12,7 @@ class ONGController implements Controller {
         this.router = express.Router();
         this.router.get('/', this.getAllONGS);
         this.router.post('/byId', this.getONGById);
-        this.router.get('/:nextProjectID', this.getONGById.bind(this));
+        this.router.get('/:nextProjectID', this.getNextOngs.bind(this));
     }
 
     public async getAllONGS(request: Request, response: Response) {
