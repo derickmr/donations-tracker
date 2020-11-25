@@ -39,18 +39,22 @@ export class Api {
 
   static async updateUser(user: any) {
     const { status } = await requestAxios.put('/user', user)
-    return status === 201
+    return status === 200
   }
 
   static async loginUser(data: any) {
-    const response = await requestAxios.post('/user/login', data)
-    const requestWasSuccessfull = response.status === 200
+    try {
+      const response = await requestAxios.post('/user/login', data)
+      const requestWasSuccessfull = response.status === 200
 
-    if (requestWasSuccessfull) {
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('email', response.data.email)
+      if (requestWasSuccessfull) {
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('email', response.data.email)
+      }
+      return requestWasSuccessfull
+    } catch (error) {
+      return false
     }
-    return requestWasSuccessfull
   }
 
   static async getDonations(email: any) {

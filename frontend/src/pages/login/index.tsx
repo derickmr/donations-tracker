@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 import logo from '../../assets/logo.png'
 
-import { Header, Button } from '../../components'
+import { Header, Button, Input } from '../../components'
 import { Form } from './types'
 
 import './index.css'
@@ -19,11 +19,7 @@ export function LoginPage() {
     password: '',
   })
 
-  function handleInputChange(event: any) {
-    const target = event.target
-    const value = target.value
-    const name = target.name
-
+  function handleInputChange(name: string, value: string) {
     setForm({ ...form, [name]: value })
   }
 
@@ -37,8 +33,11 @@ export function LoginPage() {
 
   async function login() {
     const wasSuccesfullyLoggedIn = await Api.loginUser(JSON.stringify(form))
+    console.log(wasSuccesfullyLoggedIn)
     if (wasSuccesfullyLoggedIn) {
       history.push('/')
+    } else {
+      toogleErrorToast('Ocorreu um erro ao fazer o login')
     }
   }
 
@@ -54,31 +53,22 @@ export function LoginPage() {
     })
   }
 
-  function renderInputAndLabel(
-    id: string,
-    label: string,
-    value: any,
-    type: string
-  ) {
-    return (
-      <div className='input-register-wrapper'>
-        <label htmlFor={id}>{label}</label>
-        <input
-          id={id}
-          name={id}
-          type={type}
-          value={value}
-          onChange={handleInputChange}
-        />
-      </div>
-    )
-  }
-
   function renderForm() {
     return (
       <form className='login-form'>
-        {renderInputAndLabel('email', 'E-mail', form.email, 'email')}
-        {renderInputAndLabel('password', 'Senha', form.password, 'password')}
+        <Input
+          id='email'
+          label='E-mail'
+          onChange={handleInputChange}
+          value={form.email}
+        />
+        <Input
+          id='password'
+          label='Senha'
+          onChange={handleInputChange}
+          value={form.password}
+          type='password'
+        />
         <Button label='Entrar' onClick={handleSubmit} />
       </form>
     )

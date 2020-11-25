@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import './index.css'
 
-import { Header, Loader, Button } from '../../components'
+import { Header, Loader, Button, Input } from '../../components'
 
 import { Api } from '../../service'
 
@@ -42,11 +42,7 @@ export function UserDetails() {
     }
   }, [history])
 
-  function handleInputChange(event: any) {
-    const target = event.target
-    const value = target.value
-    const name = target.name
-
+  function handleInputChange(name: string, value: string) {
     setForm({ ...form, [name]: value })
   }
 
@@ -56,37 +52,21 @@ export function UserDetails() {
     updateUser.firstName = form.firstName
     updateUser.lastName = form.lastName
 
-    const successfullUpdate = Api.updateUser(updateUser)
+    setIsLoading(true)
+    const successfullUpdate = await Api.updateUser(updateUser)
     if (successfullUpdate) {
-      window.location.reload()
+      setDetails({ ...details, ...updateUser })
     }
+    setIsLoading(false)
   }
 
   async function logout() {
-    const wasSuccesfullyLogout = Api.logout(localStorage.getItem('email'))
+    setIsLoading(true)
+    const wasSuccesfullyLogout = await Api.logout(localStorage.getItem('email'))
     if (wasSuccesfullyLogout) {
+      setIsLoading(false)
       history.replace('/login')
     }
-  }
-
-  function renderInputAndLabel(
-    id: string,
-    label: string,
-    value: any,
-    type?: string
-  ) {
-    return (
-      <div className='input-wrapper'>
-        <label htmlFor={id}>{label}</label>
-        <input
-          id={id}
-          name={id}
-          type={type || 'string'}
-          value={value}
-          onChange={handleInputChange}
-        />
-      </div>
-    )
   }
 
   function renderEmail() {
@@ -102,8 +82,18 @@ export function UserDetails() {
     return (
       <form id='userForm'>
         <div className='form-row'>
-          {renderInputAndLabel('firstName', 'Nome', form.firstName)}
-          {renderInputAndLabel('lastName', 'Sobrenome', form.lastName)}
+          <Input
+            id='firstName'
+            label='Nome'
+            onChange={handleInputChange}
+            value={form.firstName}
+          />
+          <Input
+            id='lastName'
+            label='Sobrenome'
+            onChange={handleInputChange}
+            value={form.lastName}
+          />
         </div>
 
         <div className='form-row'>
@@ -124,14 +114,12 @@ export function UserDetails() {
     }
 
     if (details) {
-      const { firstName, lastName } = details
-
       return (
         <div className='user-detail-content content'>
           <div className='user-details'>
             <div className='image-perfil' />
             <div className='name-wrapper'>
-              <h2>{`${firstName} ${lastName}`}</h2>
+              <h2>{`${details.firstName} ${details.lastName}`}</h2>
               <Button label='Sair' onClick={logout} />
             </div>
           </div>

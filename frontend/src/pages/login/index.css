@@ -35,6 +35,10 @@
   max-width: 200px;
 }
 
+.login-content .input-wrapper {
+  margin-bottom: 30px;
+}
+
 @media (max-width: 768px) {
   .login-content .logo-wrapper {
     display: none;

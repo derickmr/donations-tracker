@@ -30,7 +30,7 @@ form#ggPaymentForm {
   margin-left: 40px;
 }
 
-.input-wrapper:nth-child(2) {
+.donation-content .input-wrapper:nth-child(2) {
   margin-left: 50px;
 }
 
@@ -56,7 +56,7 @@ form#ggPaymentForm {
     margin-bottom: 0;
   }
 
-  .input-wrapper:nth-child(2) {
+  .donation-content .input-wrapper:nth-child(2) {
     margin-left: 0;
   }
 

@@ -144,6 +144,7 @@
 
 .user-detail-content .input-wrapper p {
   color: #8c8c8c;
+  width: 250px;
 }
 
 @media (max-width: 768px) {
