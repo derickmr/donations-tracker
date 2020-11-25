@@ -46,7 +46,7 @@ export class DefaultDonationService implements DonationService {
             }
 
             if (parameters.projectId) {
-                query.where("donation.projectId LIKE :value", {value: `%${parameters.projectId}%`})
+                query.where("donation.projectId = :value", {value: parameters.projectId})
             }
 
             if (parameters.donationDateGreaterThan) {
