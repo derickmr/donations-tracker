@@ -12,6 +12,7 @@ class ONGController implements Controller {
         this.router = express.Router();
         this.router.get('/', this.getAllONGS);
         this.router.post('/byId', this.getONGById);
+        this.router.get('/:nextProjectID', this.getONGById.bind(this));
     }
 
     public async getAllONGS(request: Request, response: Response) {
@@ -19,7 +20,7 @@ class ONGController implements Controller {
     };
 
     public async getNextOngs(request: Request, response: Response) {
-        response.send(await new DefaultONGService().getNextOngs(request.body.nextProjectID));
+        response.send(await new DefaultONGService().getNextOngs(request.params.nextProjectId));
     };
 
     public async getONGById(request: Request, response: Response) {
