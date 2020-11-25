@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 
 import logo from '../../assets/logoName.png'
 
-import { Header, Button } from '../../components'
+import { Header, Button, Input, Loader } from '../../components'
 import { Form } from './types'
 
 import './index.css'
@@ -14,6 +14,7 @@ import { hasEmptyFields } from '../../utils'
 
 export function RegisterPage() {
   const history = useHistory()
+  const [isLoading, setIsLoading] = useState(false)
   const [form, setForm] = useState<Form>({
     firstName: '',
     lastName: '',
@@ -22,11 +23,7 @@ export function RegisterPage() {
     confirmPassword: '',
   })
 
-  function handleInputChange(event: any) {
-    const target = event.target
-    const value = target.value
-    const name = target.name
-
+  function handleInputChange(name: string, value: string) {
     setForm({ ...form, [name]: value })
   }
 
@@ -41,9 +38,14 @@ export function RegisterPage() {
   }
 
   async function createUser() {
+    setIsLoading(true)
     const wasSuccesfullyCreate = await Api.registerUser(JSON.stringify(form))
     if (wasSuccesfullyCreate) {
+      setIsLoading(false)
       history.push('/login')
+    } else {
+      setIsLoading(false)
+      toogleErrorToast('Ocorreu um erro ao cadastrar.')
     }
   }
 
@@ -59,39 +61,42 @@ export function RegisterPage() {
     })
   }
 
-  function renderInputAndLabel(
-    id: string,
-    label: string,
-    value: any,
-    type?: string
-  ) {
-    return (
-      <div className='input-register-wrapper'>
-        <label htmlFor={id}>{label}</label>
-        <input
-          id={id}
-          name={id}
-          type={type || 'string'}
-          value={value}
-          onChange={handleInputChange}
-        />
-      </div>
-    )
-  }
-
   function renderForm() {
     return (
       <form className='register-form'>
-        {renderInputAndLabel('firstName', 'Nome', form.firstName)}
-        {renderInputAndLabel('lastName', 'Sobrenome', form.lastName)}
-        {renderInputAndLabel('email', 'E-mail', form.email, 'email')}
-        {renderInputAndLabel('password', 'Senha', form.password, 'password')}
-        {renderInputAndLabel(
-          'confirmPassword',
-          'Confirmar Senha',
-          form.confirmPassword,
-          'password'
-        )}
+        <Input
+          id='firstName'
+          label='Nome'
+          onChange={handleInputChange}
+          value={form.firstName}
+        />
+        <Input
+          id='lastName'
+          label='Sobrenome'
+          onChange={handleInputChange}
+          value={form.lastName}
+        />
+        <Input
+          id='email'
+          label='E-mail'
+          onChange={handleInputChange}
+          value={form.email}
+          type='email'
+        />
+        <Input
+          id='password'
+          label='Senha'
+          onChange={handleInputChange}
+          value={form.password}
+          type='password'
+        />
+        <Input
+          id='confirmPassword'
+          label='Confirmar Senha'
+          onChange={handleInputChange}
+          value={form.confirmPassword}
+          type='password'
+        />
 
         <Button label='Cadastrar' onClick={handleSubmit} />
       </form>
@@ -99,6 +104,14 @@ export function RegisterPage() {
   }
 
   function renderContent() {
+    if (isLoading) {
+      return (
+        <div className='loader-container'>
+          <Loader />
+        </div>
+      )
+    }
+
     return (
       <div className='register-content content'>
         <div className='register-form-wrapper'>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 import logo from '../../assets/logo.png'
 
-import { Header, Button, Input } from '../../components'
+import { Header, Button, Input, Loader } from '../../components'
 import { Form } from './types'
 
 import './index.css'
@@ -14,6 +14,7 @@ import { hasEmptyFields } from '../../utils'
 
 export function LoginPage() {
   const history = useHistory()
+  const [isLoading, setIsLoading] = useState(false)
   const [form, setForm] = useState<Form>({
     email: '',
     password: '',
@@ -32,11 +33,14 @@ export function LoginPage() {
   }
 
   async function login() {
+    setIsLoading(true)
+
     const wasSuccesfullyLoggedIn = await Api.loginUser(JSON.stringify(form))
-    console.log(wasSuccesfullyLoggedIn)
     if (wasSuccesfullyLoggedIn) {
+      setIsLoading(false)
       history.push('/')
     } else {
+      setIsLoading(false)
       toogleErrorToast('Ocorreu um erro ao fazer o login')
     }
   }
@@ -75,6 +79,14 @@ export function LoginPage() {
   }
 
   function renderContent() {
+    if (isLoading) {
+      return (
+        <div className='loader-container'>
+          <Loader />
+        </div>
+      )
+    }
+
     return (
       <div className='login-content content'>
         <div className='logo-wrapper'>

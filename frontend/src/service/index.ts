@@ -33,8 +33,12 @@ export class Api {
   }
 
   static async registerUser(data: any) {
-    const { status } = await requestAxios.post('/user', data)
-    return status === 201
+    try {
+      const { status } = await requestAxios.post('/user', data)
+      return status === 201
+    } catch (error) {
+      return false
+    }
   }
 
   static async updateUser(user: any) {

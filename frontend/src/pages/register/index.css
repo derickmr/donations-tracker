@@ -1,18 +1,8 @@
-.input-register-wrapper input {
+.register-form input {
   width: 350px;
-  height: 20px;
-  background-color: #f2f2f2;
-  border: none;
-  padding: 10px;
-  border-radius: 3px;
 }
 
-.input-register-wrapper input:focus {
-  outline: none;
-  box-shadow: 0 0 10px #b1b1b1;
-}
-
-.input-register-wrapper {
+.register-form div {
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
@@ -20,6 +10,7 @@
 
 .register-content {
   height: 90vh;
+  margin: 30px 0;
 }
 
 .register-content .button {

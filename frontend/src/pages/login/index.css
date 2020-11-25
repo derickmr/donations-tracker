@@ -3,6 +3,10 @@
   height: 90vh;
 }
 
+.login-form input {
+  width: 350px;
+}
+
 .login-content .logo {
   width: 450px;
 }
