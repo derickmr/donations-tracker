@@ -15,6 +15,10 @@ export class Api {
     return requestAxios.get('/ong')
   }
 
+  static getNextPageONGs(nextProjectID: string) {
+    return requestAxios.get(`/ong/${nextProjectID}`)
+  }
+
   static getONGDetail(id: string) {
     return requestAxios.post('/ong/byId', { ongId: id })
   }
@@ -63,6 +67,13 @@ export class Api {
 
   static async getDonations(email: any) {
     const response = await requestAxios.get(`/donation/all/${email}`)
+    return response
+  }
+
+  static async searchDonations(donationId: any) {
+    const response = await requestAxios.post('/donation/search/', {
+      projectId: donationId,
+    })
     return response
   }
 

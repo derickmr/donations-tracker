@@ -13,6 +13,7 @@ export function DonationsList() {
 
   const [donations, setDonations] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [searchProjectId, setSearchProjectId] = useState('')
 
   useEffect(() => {
     async function getData() {
@@ -31,6 +32,29 @@ export function DonationsList() {
       getData()
     }
   }, [history])
+
+  async function searchDonationId() {
+    setIsLoading(true)
+    const { data } = await Api.searchDonations(searchProjectId)
+    setDonations(data)
+    setIsLoading(false)
+  }
+
+  function renderFilters() {
+    return (
+      <div className='filters-wrapper'>
+        <h4>Buscar por ID:</h4>
+        <input
+          value={searchProjectId}
+          onChange={(event) => setSearchProjectId(event.target.value)}
+          type='number'
+        />
+        <button className='button-search-donation' onClick={searchDonationId}>
+          Buscar
+        </button>
+      </div>
+    )
+  }
 
   function renderDonation(donation: Donation) {
     return (
@@ -78,7 +102,10 @@ export function DonationsList() {
         <div className='donations-page-title'>
           <h1>Minhas Doações</h1>
         </div>
-        <div className='donations-wrapper'>{renderDonations()}</div>
+        <div className='donations-wrapper'>
+          {renderFilters()}
+          {renderDonations()}
+        </div>
       </div>
     )
   }
