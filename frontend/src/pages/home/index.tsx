@@ -8,13 +8,19 @@ import { Api } from '../../service'
 import { ONG } from './types'
 
 export function Home() {
-  const [listOngs, setListOngs] = useState([])
+  const [listOngs, setListOngs] = useState<Array<ONG>>([])
+  const [hasNextPage, setHasNextPage] = useState(true)
+  const [nextProjectId, setNextProjectId] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     async function getData() {
       setIsLoading(true)
+
       const { data } = await Api.getONGs()
+
+      setHasNextPage(data.hasNext)
+      setNextProjectId(data.nextOrgId)
       setListOngs(data.organization)
       setIsLoading(false)
     }
@@ -22,9 +28,39 @@ export function Home() {
     getData()
   }, [])
 
+  async function loadMoreOngs() {
+    setIsLoading(true)
+    const { data } = await Api.getNextPageONGs(nextProjectId)
+
+    setHasNextPage(data.hasNext)
+    setNextProjectId(data.nextProjectId)
+    const organizations = parseProjectToOng(data.project)
+    setListOngs((listOngs) => [...listOngs, ...organizations])
+    setIsLoading(false)
+  }
+
+  function parseProjectToOng(project: any) {
+    return project.map((proj: any) => proj.organization)
+  }
+
+  function renderLoadMoreOngs() {
+    if (hasNextPage) {
+      return (
+        <button className='button-load-more' onClick={loadMoreOngs}>
+          Carregar Mais
+        </button>
+      )
+    }
+
+    return null
+  }
+
   function renderONGs() {
     return listOngs.map((ong: ONG) => {
-      return <HomeCard key={ong.id} {...ong} />
+      if (ong.id) {
+        return <HomeCard key={ong.id} {...ong} />
+      }
+      return null
     })
   }
 
@@ -40,6 +76,7 @@ export function Home() {
     return (
       <div className='content home-content'>
         <div className='ongs-wrapper'>{renderONGs()}</div>
+        {renderLoadMoreOngs()}
       </div>
     )
   }

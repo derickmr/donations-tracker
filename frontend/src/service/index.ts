@@ -3,7 +3,7 @@ import axios from 'axios'
 const requestAxios = axios.create({
   baseURL:
     'https://cors-anywhere.herokuapp.com/https://donations-tracker-backend.herokuapp.com/',
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     'Content-Type': 'application/json',
     'x-access-token': localStorage.getItem('token'),

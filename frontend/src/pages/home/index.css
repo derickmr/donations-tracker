@@ -30,3 +30,17 @@
   justify-content: space-evenly;
   max-width: 1300px;
 }
+
+.button-load-more {
+  background: linear-gradient(90deg, #f86b6a 0%, #fd954e 100%);
+  border-radius: 5px;
+  padding: 13px;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 0;
+  font-size: 14px;
+  margin: 20px 0;
+}
