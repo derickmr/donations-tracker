@@ -19,7 +19,7 @@ export class DefaultONGService implements ONGService {
     }
 
     async getNextOngs(nextProjectID: String): Promise<ONGResponseData>{
-        return this.doRequestAllOngs(this.replaceNextProjectIDOnRequestURL(nextProjectID));
+        return await this.doRequestAllOngs(this.replaceNextProjectIDOnRequestURL(nextProjectID));
     }
 
     async getOngById(id: String): Promise<ONGResponseData>{
@@ -33,8 +33,11 @@ export class DefaultONGService implements ONGService {
                 url: URL
             }, function (error: any, response: any, body: any) {
                 const bodyResponse: any = JSON.parse(body);
+                console.log("response: " + JSON.stringify(bodyResponse));
                 if (bodyResponse.organizations) {
                     resolve(bodyResponse.organizations);
+                } else if (bodyResponse.projects) {
+                    resolve(bodyResponse.projects);
                 } else {
                     resolve(new ONGResponseData());
                 }
@@ -60,7 +63,8 @@ export class DefaultONGService implements ONGService {
     }
 
     private replaceNextProjectIDOnRequestURL(nextProjectID: String): String{
-        return this.GET_NEXT_ONGS_SERVICE_ENDPOINT.replace("{nextProjectID}", nextProjectID.toString());
+        const endpoint = this.GET_NEXT_ONGS_SERVICE_ENDPOINT.replace("{nextProjectID}", nextProjectID.toString());
+        return endpoint;
     }
 
     private replaceOrganizationIdOnRequestURL(id: String): String{
